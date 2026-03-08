@@ -3,7 +3,7 @@ members = ["wikiext", "wikiext-cli"]
 resolver = "3"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Wikiext is a tool for extracting and processing Wikipedia data, implemented in Rust."
 documentation = "https://docs.rs/wikiext"
@@ -16,7 +16,7 @@ license = "MIT"
 rust-version = "1.85"
 
 [workspace.dependencies]
-wikiext = { version = "0.1.0", path = "./wikiext" }
+wikiext = { version = "0.1.1", path = "./wikiext" }
 
 thiserror = "2.0.18"
 log = "0.4.29"
