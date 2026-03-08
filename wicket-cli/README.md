@@ -2,14 +2,12 @@
 
 A high-performance tool that extracts plain text from Wikipedia XML dump files.
 
-wicket is a Rust reimplementation of [wikiextractor](https://github.com/attardi/wikiextractor), offering significantly faster processing through parallel execution and efficient streaming.
-
 ## Features
 
 - Streaming XML parsing that handles multi-gigabyte dumps without loading them into memory
 - Parallel text extraction using multiple CPU cores via [rayon](https://crates.io/crates/rayon)
 - Automatic bzip2 decompression for `.xml.bz2` dump files
-- Output compatible with wikiextractor (doc format and JSON format)
+- Doc format and JSON format output
 - File splitting with configurable maximum size per file
 - Namespace filtering to extract only specific page types
 
@@ -26,8 +24,8 @@ cargo install wicket-cli
 Requires Rust 1.85 or later.
 
 ```sh
-git clone https://github.com/mosuka/wext.git
-cd wext
+git clone https://github.com/mosuka/wicket.git
+cd wicket
 cargo build --release
 ```
 
@@ -108,8 +106,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Documentation
 
-- [English Documentation](https://mosuka.github.io/wext/en/)
-- [日本語ドキュメント](https://mosuka.github.io/wext/ja/)
+- [English Documentation](https://mosuka.github.io/wicket/en/)
+- [日本語ドキュメント](https://mosuka.github.io/wicket/ja/)
 - [API Documentation (docs.rs)](https://docs.rs/wicket)
 
 ## License

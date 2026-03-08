@@ -5,7 +5,7 @@ wicket is organized as a **Cargo workspace** with two crates and supporting dire
 ## Directory Layout
 
 ```text
-wext/
+wicket/
 ├── Cargo.toml              # Workspace manifest
 ├── Cargo.lock              # Dependency lock file
 ├── LICENSE                 # MIT OR Apache-2.0

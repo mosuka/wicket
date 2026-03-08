@@ -44,7 +44,7 @@ Formats extracted articles into the output representation.
 
 ### `output` -- File Splitter
 
-Manages writing extracted articles to split output files following the wikiextractor directory naming convention.
+Manages writing extracted articles to split output files following a two-letter directory naming convention.
 
 - **`OutputConfig`** -- Configuration for output path, max file size, and compression
 - **`OutputSplitter`** -- Manages file rotation with AA/wiki_00 naming (100 files per directory, directories AA through ZZ)

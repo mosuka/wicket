@@ -17,7 +17,7 @@ wicket dump.xml.bz2 -o -
 
 `-o, --output <PATH>` -- Specifies the output directory. Defaults to `text`.
 
-- When set to a directory path, output files are created in the wikiextractor naming convention (AA/wiki_00, etc.)
+- When set to a directory path, output files are created using the two-letter directory naming convention (AA/wiki_00, etc.)
 - When set to `-`, all output is written to stdout without file splitting
 
 ## File Size

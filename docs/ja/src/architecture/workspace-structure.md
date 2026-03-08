@@ -5,7 +5,7 @@ wicket は **Cargo workspace** で2つのクレートと関連ディレクトリ
 ## ディレクトリ構成
 
 ```text
-wext/
+wicket/
 ├── Cargo.toml              # Workspace マニフェスト
 ├── Cargo.lock              # 依存ロックファイル
 ├── LICENSE                 # MIT OR Apache-2.0

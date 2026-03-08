@@ -11,8 +11,8 @@ build-dir = "../../target/docs/ja"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-git-repository-url = "https://github.com/mosuka/wext"
-edit-url-template = "https://github.com/mosuka/wext/edit/main/docs/ja/{path}"
+git-repository-url = "https://github.com/mosuka/wicket"
+edit-url-template = "https://github.com/mosuka/wicket/edit/main/docs/ja/{path}"
 no-section-label = false
 
 [output.html.fold]

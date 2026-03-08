@@ -10,7 +10,7 @@ An enum specifying the output format.
 
 | Variant | Description |
 | ----- | ----- |
-| `Doc` | wikiextractor-compatible doc format with XML-like tags |
+| `Doc` | Doc format with XML-like tags |
 | `Json` | JSON Lines format (one JSON object per article) |
 
 ## Functions

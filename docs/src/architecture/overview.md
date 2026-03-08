@@ -28,6 +28,6 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 
 - **Streaming processing** -- XML is parsed as a stream; only one article is in memory at a time
 - **Batch parallelism** -- CPU-bound wikitext cleaning is parallelized via rayon while I/O remains sequential
-- **wikiextractor compatibility** -- output format and directory structure match the original Python tool
+- **Structured output** -- doc format and JSON format with organized directory structure
 - **Fail-soft** -- malformed pages are logged and skipped rather than causing the entire process to abort
 - **Library-first** -- core functionality lives in the `wicket` library crate; the CLI is a thin wrapper

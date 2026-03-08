@@ -20,4 +20,4 @@ Copyright (c) 2025 Minoru OSUKA
 
 ## ライセンス全文
 
-完全なライセンステキストはリポジトリの [LICENSE](https://github.com/mosuka/wext/blob/main/LICENSE) ファイルで確認できます。
+完全なライセンステキストはリポジトリの [LICENSE](https://github.com/mosuka/wicket/blob/main/LICENSE) ファイルで確認できます。

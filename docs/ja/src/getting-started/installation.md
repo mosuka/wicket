@@ -16,8 +16,8 @@ cargo install wicket-cli
 ### ソースから
 
 ```sh
-git clone https://github.com/mosuka/wext.git
-cd wext
+git clone https://github.com/mosuka/wicket.git
+cd wicket
 cargo build --release
 ```
 

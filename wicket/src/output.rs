@@ -52,7 +52,7 @@ impl Write for Writer {
     }
 }
 
-/// Manages splitting output across multiple files following the wikiextractor
+/// Manages splitting output across multiple files following a two-letter
 /// directory/file naming convention.
 ///
 /// Files are organized into directories named with two uppercase letters

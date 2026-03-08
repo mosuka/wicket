@@ -20,4 +20,4 @@ Copyright (c) 2025 Minoru OSUKA
 
 ## Full License Text
 
-The complete license text is available in the [LICENSE](https://github.com/mosuka/wext/blob/main/LICENSE) file in the repository.
+The complete license text is available in the [LICENSE](https://github.com/mosuka/wicket/blob/main/LICENSE) file in the repository.

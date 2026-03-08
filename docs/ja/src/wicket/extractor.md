@@ -10,7 +10,7 @@
 
 | バリアント | 説明 |
 | ----- | ----- |
-| `Doc` | wikiextractor 互換の XML 風タグ付き doc フォーマット |
+| `Doc` | XML 風タグ付き doc フォーマット |
 | `Json` | JSON Lines フォーマット（1記事1JSON オブジェクト） |
 
 ## 関数

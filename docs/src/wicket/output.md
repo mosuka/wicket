@@ -1,6 +1,6 @@
 # output
 
-The `output` module manages writing extracted articles to split output files following the wikiextractor directory naming convention.
+The `output` module manages writing extracted articles to split output files following a two-letter directory naming convention.
 
 ## Types
 
@@ -20,7 +20,7 @@ Manages file rotation and writing. Creates subdirectories and files as needed.
 
 ## Directory Naming Convention
 
-Output files are organized using wikiextractor's naming convention:
+Output files are organized using the following naming convention:
 
 ```text
 output/
