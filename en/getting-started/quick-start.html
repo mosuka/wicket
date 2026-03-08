@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Quick Start - wikiext Documentation</title>
+        <title>Quick Start - wicket Documentation</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Documentation for wikiext - a high-performance Wikipedia dump text extractor in Rust">
+        <meta name="description" content="Documentation for wicket - a high-performance Wikipedia dump text extractor in Rust">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-79afe712.js";
+            window.path_to_searchindex_js = "../searchindex-4a8f690f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-58a54458.js"></script>
+        <script src="../toc-3588aad3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext Documentation</h1>
+                    <h1 class="menu-title">wicket Documentation</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -188,18 +188,18 @@
 <h2 id="cli-quick-start"><a class="header" href="#cli-quick-start">CLI Quick Start</a></h2>
 <h3 id="basic-extraction"><a class="header" href="#basic-extraction">Basic Extraction</a></h3>
 <p>Extract plain text from a Wikipedia dump:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/
 </code></pre>
 <p>This reads the dump, extracts plain text from all main namespace articles, and writes the output to the <code>output/</code> directory in doc format, splitting files at 1 MB.</p>
 <h3 id="json-output"><a class="header" href="#json-output">JSON Output</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
 </code></pre>
 <h3 id="write-to-stdout"><a class="header" href="#write-to-stdout">Write to stdout</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
 </code></pre>
 <h2 id="library-quick-start"><a class="header" href="#library-quick-start">Library Quick Start</a></h2>
 <p>Here is a minimal Rust program that opens a dump and processes articles:</p>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("simplewiki-latest-pages-articles.xml.bz2".as_ref(), &amp;[0])?;
@@ -219,8 +219,8 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 }</code></pre>
 <h2 id="whats-next"><a class="header" href="#whats-next">What’s Next</a></h2>
 <ul>
-<li><a href="../wikiext-cli.html">CLI Reference</a> – learn all CLI options</li>
-<li><a href="../architecture/overview.html">Architecture</a> – understand how wikiext works internally</li>
+<li><a href="../wicket-cli.html">CLI Reference</a> – learn all CLI options</li>
+<li><a href="../architecture/overview.html">Architecture</a> – understand how wicket works internally</li>
 </ul>
 
                     </main>

@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Workspace Structure - wikiext Documentation</title>
+        <title>Workspace Structure - wicket Documentation</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Documentation for wikiext - a high-performance Wikipedia dump text extractor in Rust">
+        <meta name="description" content="Documentation for wicket - a high-performance Wikipedia dump text extractor in Rust">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-79afe712.js";
+            window.path_to_searchindex_js = "../searchindex-4a8f690f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-58a54458.js"></script>
+        <script src="../toc-3588aad3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext Documentation</h1>
+                    <h1 class="menu-title">wicket Documentation</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -181,14 +181,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="workspace-structure"><a class="header" href="#workspace-structure">Workspace Structure</a></h1>
-<p>wikiext is organized as a <strong>Cargo workspace</strong> with two crates and supporting directories.</p>
+<p>wicket is organized as a <strong>Cargo workspace</strong> with two crates and supporting directories.</p>
 <h2 id="directory-layout"><a class="header" href="#directory-layout">Directory Layout</a></h2>
 <pre><code class="language-text">wext/
 ├── Cargo.toml              # Workspace manifest
 ├── Cargo.lock              # Dependency lock file
 ├── LICENSE                 # MIT OR Apache-2.0
 ├── README.md               # Project overview
-├── wikiext/                # Core library crate
+├── wicket/                # Core library crate
 │   ├── Cargo.toml
 │   └── src/
 │       ├── lib.rs          # Module declarations and re-exports
@@ -197,7 +197,7 @@
 │       ├── extractor.rs    # Output formatting (doc/JSON)
 │       ├── output.rs       # File splitting and rotation
 │       └── error.rs        # Error types
-├── wikiext-cli/            # CLI binary crate
+├── wicket-cli/            # CLI binary crate
 │   ├── Cargo.toml
 │   └── src/
 │       └── main.rs         # CLI entry point
@@ -215,7 +215,7 @@
         └── deploy-docs.yml # Documentation deployment
 </code></pre>
 <h2 id="crate-details"><a class="header" href="#crate-details">Crate Details</a></h2>
-<h3 id="wikiext-core-library"><a class="header" href="#wikiext-core-library"><code>wikiext</code> (Core Library)</a></h3>
+<h3 id="wicket-core-library"><a class="header" href="#wicket-core-library"><code>wicket</code> (Core Library)</a></h3>
 <p>The core library provides streaming XML parsing, wikitext cleaning, output formatting, and file splitting.</p>
 <div class="table-wrapper">
 <table>
@@ -235,8 +235,8 @@
 </tbody>
 </table>
 </div>
-<h3 id="wikiext-cli-cli-binary"><a class="header" href="#wikiext-cli-cli-binary"><code>wikiext-cli</code> (CLI Binary)</a></h3>
-<p>The CLI provides a command-line interface to wikiext’s functionality.</p>
+<h3 id="wicket-cli-cli-binary"><a class="header" href="#wicket-cli-cli-binary"><code>wicket-cli</code> (CLI Binary)</a></h3>
+<p>The CLI provides a command-line interface to wicket’s functionality.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -248,7 +248,7 @@
 <tr><td><code>bzip2</code></td><td>0.6</td><td>Compressed output support</td></tr>
 <tr><td><code>env_logger</code></td><td>0.11</td><td>Logging output</td></tr>
 <tr><td><code>anyhow</code></td><td>1.0</td><td>Error handling in binary</td></tr>
-<tr><td><code>wikiext</code></td><td>0.1</td><td>Core library (workspace member)</td></tr>
+<tr><td><code>wicket</code></td><td>0.1</td><td>Core library (workspace member)</td></tr>
 </tbody>
 </table>
 </div>
@@ -256,7 +256,7 @@
 <p>The workspace uses Cargo resolver version 3 (Rust Edition 2024):</p>
 <pre><code class="language-toml">[workspace]
 resolver = "3"
-members = ["wikiext", "wikiext-cli"]
+members = ["wicket", "wicket-cli"]
 
 [workspace.package]
 version = "0.1.0"

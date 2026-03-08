@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>アーキテクチャ概要 - wikiext ドキュメント</title>
+        <title>アーキテクチャ概要 - wicket ドキュメント</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="wikiext - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
+        <meta name="description" content="wicket - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-91eabf39.js";
+            window.path_to_searchindex_js = "../searchindex-590e1f14.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-36a9bb01.js"></script>
+        <script src="../toc-99189195.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext ドキュメント</h1>
+                    <h1 class="menu-title">wicket ドキュメント</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="アーキテクチャ概要"><a class="header" href="#アーキテクチャ概要">アーキテクチャ概要</a></h1>
-<p>wikiext は高性能なストリーミング Wikipedia ダンプテキスト抽出ツールとして設計されています。ストリーミング I/O とバッチベースの並列処理を組み合わせて、数十 GB の XML ダンプを処理します。</p>
+<p>wicket は高性能なストリーミング Wikipedia ダンプテキスト抽出ツールとして設計されています。ストリーミング I/O とバッチベースの並列処理を組み合わせて、数十 GB の XML ダンプを処理します。</p>
 <h2 id="全体のデータフロー"><a class="header" href="#全体のデータフロー">全体のデータフロー</a></h2>
 <pre><code class="language-text">入力 (.xml / .xml.bz2)
   |
@@ -207,7 +207,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <li><strong>バッチ並列処理</strong> – CPU バウンドな Wikitext クリーニングを rayon で並列化し、I/O は逐次実行</li>
 <li><strong>wikiextractor 互換</strong> – 出力フォーマットとディレクトリ構造は Python 版オリジナルと一致</li>
 <li><strong>フェイルソフト</strong> – 不正なページはログに記録してスキップし、全体の処理は停止しない</li>
-<li><strong>ライブラリファースト</strong> – コア機能は <code>wikiext</code> ライブラリクレートに集約。CLI は薄いラッパー</li>
+<li><strong>ライブラリファースト</strong> – コア機能は <code>wicket</code> ライブラリクレートに集約。CLI は薄いラッパー</li>
 </ul>
 
                     </main>

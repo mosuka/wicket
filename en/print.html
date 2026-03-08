@@ -3,13 +3,13 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>wikiext Documentation</title>
+        <title>wicket Documentation</title>
         <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Documentation for wikiext - a high-performance Wikipedia dump text extractor in Rust">
+        <meta name="description" content="Documentation for wicket - a high-performance Wikipedia dump text extractor in Rust">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-79afe712.js";
+            window.path_to_searchindex_js = "searchindex-4a8f690f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-58a54458.js"></script>
+        <script src="toc-3588aad3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext Documentation</h1>
+                    <h1 class="menu-title">wicket Documentation</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -179,7 +179,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p><strong>wikiext</strong> is a high-performance tool that extracts plain text from Wikipedia XML dump files. It is a Rust reimplementation of <a href="https://github.com/attardi/wikiextractor">wikiextractor</a>, offering significantly faster processing through parallel execution and efficient streaming.</p>
+<p><strong>wicket</strong> is a high-performance tool that extracts plain text from Wikipedia XML dump files. It is a Rust reimplementation of <a href="https://github.com/attardi/wikiextractor">wikiextractor</a>, offering significantly faster processing through parallel execution and efficient streaming.</p>
 <h2 id="key-features"><a class="header" href="#key-features">Key Features</a></h2>
 <ul>
 <li><strong>Streaming XML parsing</strong> – handles multi-gigabyte dumps without loading them into memory</li>
@@ -199,21 +199,21 @@ April is the fourth month of the year...
 <pre><code class="language-json">{"id":"1","url":"https://en.wikipedia.org/wiki/April","title":"April","text":"April is the fourth month of the year..."}
 </code></pre>
 <h2 id="current-version"><a class="header" href="#current-version">Current Version</a></h2>
-<p>wikiext v0.1.0 – Rust Edition 2024, minimum Rust version 1.85.</p>
+<p>wicket v0.1.0 – Rust Edition 2024, minimum Rust version 1.85.</p>
 <h2 id="links"><a class="header" href="#links">Links</a></h2>
 <ul>
 <li><a href="https://github.com/mosuka/wext">GitHub Repository</a></li>
-<li><a href="https://crates.io/crates/wikiext">crates.io</a></li>
-<li><a href="https://docs.rs/wikiext">API Documentation (docs.rs)</a></li>
+<li><a href="https://crates.io/crates/wicket">crates.io</a></li>
+<li><a href="https://docs.rs/wicket">API Documentation (docs.rs)</a></li>
 <li><a href="../ja">Japanese Documentation (日本語)</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
-<p>Welcome to wikiext! This section will help you get up and running quickly.</p>
-<p>wikiext extracts plain text from Wikipedia XML dump files. It reads MediaWiki XML dumps (optionally bzip2-compressed), removes wiki markup, and writes clean text in doc or JSON format.</p>
+<p>Welcome to wicket! This section will help you get up and running quickly.</p>
+<p>wicket extracts plain text from Wikipedia XML dump files. It reads MediaWiki XML dumps (optionally bzip2-compressed), removes wiki markup, and writes clean text in doc or JSON format.</p>
 <h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
 <ul>
-<li><a href="#installation">Installation</a> – install wikiext from source or crates.io</li>
+<li><a href="#installation">Installation</a> – install wicket from source or crates.io</li>
 <li><a href="#quick-start">Quick Start</a> – extract text from a Wikipedia dump in minutes</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -225,24 +225,24 @@ April is the fourth month of the year...
 </ul>
 <h2 id="installing-the-cli-tool"><a class="header" href="#installing-the-cli-tool">Installing the CLI Tool</a></h2>
 <h3 id="from-cratesio"><a class="header" href="#from-cratesio">From crates.io</a></h3>
-<pre><code class="language-sh">cargo install wikiext-cli
+<pre><code class="language-sh">cargo install wicket-cli
 </code></pre>
 <h3 id="from-source"><a class="header" href="#from-source">From Source</a></h3>
 <pre><code class="language-sh">git clone https://github.com/mosuka/wext.git
 cd wext
 cargo build --release
 </code></pre>
-<p>The binary will be available at <code>./target/release/wikiext</code>.</p>
+<p>The binary will be available at <code>./target/release/wicket</code>.</p>
 <p>Verify the installation:</p>
-<pre><code class="language-sh">./target/release/wikiext --help
+<pre><code class="language-sh">./target/release/wicket --help
 </code></pre>
 <h2 id="using-as-a-library"><a class="header" href="#using-as-a-library">Using as a Library</a></h2>
-<p>Add wikiext to your project’s <code>Cargo.toml</code>:</p>
+<p>Add wicket to your project’s <code>Cargo.toml</code>:</p>
 <pre><code class="language-toml">[dependencies]
-wikiext = "0.1.0"
+wicket = "0.1.0"
 </code></pre>
 <h2 id="supported-platforms"><a class="header" href="#supported-platforms">Supported Platforms</a></h2>
-<p>wikiext is tested on the following platforms:</p>
+<p>wicket is tested on the following platforms:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -264,18 +264,18 @@ wikiext = "0.1.0"
 <h2 id="cli-quick-start"><a class="header" href="#cli-quick-start">CLI Quick Start</a></h2>
 <h3 id="basic-extraction"><a class="header" href="#basic-extraction">Basic Extraction</a></h3>
 <p>Extract plain text from a Wikipedia dump:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/
 </code></pre>
 <p>This reads the dump, extracts plain text from all main namespace articles, and writes the output to the <code>output/</code> directory in doc format, splitting files at 1 MB.</p>
 <h3 id="json-output"><a class="header" href="#json-output">JSON Output</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
 </code></pre>
 <h3 id="write-to-stdout"><a class="header" href="#write-to-stdout">Write to stdout</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
 </code></pre>
 <h2 id="library-quick-start"><a class="header" href="#library-quick-start">Library Quick Start</a></h2>
 <p>Here is a minimal Rust program that opens a dump and processes articles:</p>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("simplewiki-latest-pages-articles.xml.bz2".as_ref(), &amp;[0])?;
@@ -296,11 +296,11 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="whats-next"><a class="header" href="#whats-next">What’s Next</a></h2>
 <ul>
 <li><a href="#cli-reference-overview">CLI Reference</a> – learn all CLI options</li>
-<li><a href="#architecture-overview">Architecture</a> – understand how wikiext works internally</li>
+<li><a href="#architecture-overview">Architecture</a> – understand how wicket works internally</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="architecture-overview"><a class="header" href="#architecture-overview">Architecture Overview</a></h1>
-<p>wikiext is designed as a high-performance, streaming Wikipedia dump text extractor. It processes multi-gigabyte XML dumps by combining streaming I/O with batch-based parallelism.</p>
+<p>wicket is designed as a high-performance, streaming Wikipedia dump text extractor. It processes multi-gigabyte XML dumps by combining streaming I/O with batch-based parallelism.</p>
 <h2 id="high-level-data-flow"><a class="header" href="#high-level-data-flow">High-Level Data Flow</a></h2>
 <pre><code class="language-text">Input (.xml / .xml.bz2)
   |
@@ -326,18 +326,18 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <li><strong>Batch parallelism</strong> – CPU-bound wikitext cleaning is parallelized via rayon while I/O remains sequential</li>
 <li><strong>wikiextractor compatibility</strong> – output format and directory structure match the original Python tool</li>
 <li><strong>Fail-soft</strong> – malformed pages are logged and skipped rather than causing the entire process to abort</li>
-<li><strong>Library-first</strong> – core functionality lives in the <code>wikiext</code> library crate; the CLI is a thin wrapper</li>
+<li><strong>Library-first</strong> – core functionality lives in the <code>wicket</code> library crate; the CLI is a thin wrapper</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="workspace-structure"><a class="header" href="#workspace-structure">Workspace Structure</a></h1>
-<p>wikiext is organized as a <strong>Cargo workspace</strong> with two crates and supporting directories.</p>
+<p>wicket is organized as a <strong>Cargo workspace</strong> with two crates and supporting directories.</p>
 <h2 id="directory-layout"><a class="header" href="#directory-layout">Directory Layout</a></h2>
 <pre><code class="language-text">wext/
 ├── Cargo.toml              # Workspace manifest
 ├── Cargo.lock              # Dependency lock file
 ├── LICENSE                 # MIT OR Apache-2.0
 ├── README.md               # Project overview
-├── wikiext/                # Core library crate
+├── wicket/                # Core library crate
 │   ├── Cargo.toml
 │   └── src/
 │       ├── lib.rs          # Module declarations and re-exports
@@ -346,7 +346,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 │       ├── extractor.rs    # Output formatting (doc/JSON)
 │       ├── output.rs       # File splitting and rotation
 │       └── error.rs        # Error types
-├── wikiext-cli/            # CLI binary crate
+├── wicket-cli/            # CLI binary crate
 │   ├── Cargo.toml
 │   └── src/
 │       └── main.rs         # CLI entry point
@@ -364,7 +364,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
         └── deploy-docs.yml # Documentation deployment
 </code></pre>
 <h2 id="crate-details"><a class="header" href="#crate-details">Crate Details</a></h2>
-<h3 id="wikiext-core-library"><a class="header" href="#wikiext-core-library"><code>wikiext</code> (Core Library)</a></h3>
+<h3 id="wicket-core-library"><a class="header" href="#wicket-core-library"><code>wicket</code> (Core Library)</a></h3>
 <p>The core library provides streaming XML parsing, wikitext cleaning, output formatting, and file splitting.</p>
 <div class="table-wrapper">
 <table>
@@ -384,8 +384,8 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 </tbody>
 </table>
 </div>
-<h3 id="wikiext-cli-cli-binary"><a class="header" href="#wikiext-cli-cli-binary"><code>wikiext-cli</code> (CLI Binary)</a></h3>
-<p>The CLI provides a command-line interface to wikiext’s functionality.</p>
+<h3 id="wicket-cli-cli-binary"><a class="header" href="#wicket-cli-cli-binary"><code>wicket-cli</code> (CLI Binary)</a></h3>
+<p>The CLI provides a command-line interface to wicket’s functionality.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -397,7 +397,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <tr><td><code>bzip2</code></td><td>0.6</td><td>Compressed output support</td></tr>
 <tr><td><code>env_logger</code></td><td>0.11</td><td>Logging output</td></tr>
 <tr><td><code>anyhow</code></td><td>1.0</td><td>Error handling in binary</td></tr>
-<tr><td><code>wikiext</code></td><td>0.1</td><td>Core library (workspace member)</td></tr>
+<tr><td><code>wicket</code></td><td>0.1</td><td>Core library (workspace member)</td></tr>
 </tbody>
 </table>
 </div>
@@ -405,7 +405,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <p>The workspace uses Cargo resolver version 3 (Rust Edition 2024):</p>
 <pre><code class="language-toml">[workspace]
 resolver = "3"
-members = ["wikiext", "wikiext-cli"]
+members = ["wicket", "wicket-cli"]
 
 [workspace.package]
 version = "0.1.0"
@@ -415,7 +415,7 @@ license = "MIT OR Apache-2.0"
 <p>Shared dependencies are defined at the workspace level in <code>[workspace.dependencies]</code> and referenced by each crate with <code>{ workspace = true }</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="module-design"><a class="header" href="#module-design">Module Design</a></h1>
-<p>The <code>wikiext</code> library crate is organized into five modules, each with a clear responsibility.</p>
+<p>The <code>wicket</code> library crate is organized into five modules, each with a clear responsibility.</p>
 <h2 id="module-overview"><a class="header" href="#module-overview">Module Overview</a></h2>
 <div class="table-wrapper">
 <table>
@@ -481,7 +481,7 @@ pub use output::{OutputConfig, OutputSplitter};
 <span class="boring">}</span></code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="data-flow"><a class="header" href="#data-flow">Data Flow</a></h1>
-<p>This page describes how data flows through wikiext from input to output.</p>
+<p>This page describes how data flows through wicket from input to output.</p>
 <h2 id="processing-pipeline"><a class="header" href="#processing-pipeline">Processing Pipeline</a></h2>
 <pre><code class="language-text">Input (.xml / .xml.bz2)
   |
@@ -531,7 +531,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <li>Outputs to stdout when the path is <code>"-"</code></li>
 </ul>
 <h2 id="parallelization-strategy"><a class="header" href="#parallelization-strategy">Parallelization Strategy</a></h2>
-<p>wikiext uses a batch-based parallelization approach rather than a pipeline with channels:</p>
+<p>wicket uses a batch-based parallelization approach rather than a pipeline with channels:</p>
 <ol>
 <li>The main thread reads articles from the <code>DumpReader</code> in batches of 1000</li>
 <li>Each batch is processed in parallel using <code>rayon::par_iter()</code></li>
@@ -541,10 +541,10 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <p>This approach is simple, maintains output ordering, and effectively parallelizes the CPU-bound cleaning step while keeping the I/O-bound reading and writing sequential.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="library-api-overview"><a class="header" href="#library-api-overview">Library API Overview</a></h1>
-<p>The <code>wikiext</code> crate provides a Rust API for extracting plain text from Wikipedia XML dump files.</p>
+<p>The <code>wicket</code> crate provides a Rust API for extracting plain text from Wikipedia XML dump files.</p>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
 <pre><code class="language-toml">[dependencies]
-wikiext = "0.1.0"
+wicket = "0.1.0"
 </code></pre>
 <h2 id="module-map"><a class="header" href="#module-map">Module Map</a></h2>
 <div class="table-wrapper">
@@ -553,16 +553,16 @@ wikiext = "0.1.0"
 <tr><th>Module</th><th>Primary Types</th><th>Purpose</th></tr>
 </thead>
 <tbody>
-<tr><td><code>wikiext::dump</code></td><td><code>Article</code>, <code>DumpReader</code>, <code>open_dump()</code></td><td>Streaming XML dump parsing</td></tr>
-<tr><td><code>wikiext::cleaner</code></td><td><code>clean_wikitext()</code></td><td>Wikitext to plain text conversion</td></tr>
-<tr><td><code>wikiext::extractor</code></td><td><code>OutputFormat</code>, <code>format_page()</code>, <code>make_url()</code></td><td>Output formatting</td></tr>
-<tr><td><code>wikiext::output</code></td><td><code>OutputConfig</code>, <code>OutputSplitter</code></td><td>File splitting and rotation</td></tr>
-<tr><td><code>wikiext::error</code></td><td><code>Error</code></td><td>Error type definitions</td></tr>
+<tr><td><code>wicket::dump</code></td><td><code>Article</code>, <code>DumpReader</code>, <code>open_dump()</code></td><td>Streaming XML dump parsing</td></tr>
+<tr><td><code>wicket::cleaner</code></td><td><code>clean_wikitext()</code></td><td>Wikitext to plain text conversion</td></tr>
+<tr><td><code>wicket::extractor</code></td><td><code>OutputFormat</code>, <code>format_page()</code>, <code>make_url()</code></td><td>Output formatting</td></tr>
+<tr><td><code>wicket::output</code></td><td><code>OutputConfig</code>, <code>OutputSplitter</code></td><td>File splitting and rotation</td></tr>
+<tr><td><code>wicket::error</code></td><td><code>Error</code></td><td>Error type definitions</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="quick-example"><a class="header" href="#quick-example">Quick Example</a></h2>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("dump.xml.bz2".as_ref(), &amp;[0])?;
@@ -581,7 +581,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     Ok(())
 }</code></pre>
 <h2 id="api-documentation"><a class="header" href="#api-documentation">API Documentation</a></h2>
-<p>Full API documentation is available on <a href="https://docs.rs/wikiext">docs.rs/wikiext</a>.</p>
+<p>Full API documentation is available on <a href="https://docs.rs/wicket">docs.rs/wicket</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dump"><a class="header" href="#dump">dump</a></h1>
 <p>The <code>dump</code> module provides streaming XML parsing of MediaWiki dump files.</p>
@@ -619,7 +619,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use wikiext::open_dump;
+</span>use wicket::open_dump;
 
 let reader = open_dump("dump.xml.bz2".as_ref(), &amp;[0])?;
 println!("URL base: {}", reader.url_base());
@@ -656,7 +656,7 @@ for result in reader {
 <h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use wikiext::clean_wikitext;
+</span>use wicket::clean_wikitext;
 
 let wikitext = "'''April''' is the [[month|fourth month]] of the year.";
 let text = clean_wikitext(wikitext);
@@ -751,7 +751,7 @@ April is the fourth month of the year...
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="error"><a class="header" href="#error">error</a></h1>
-<p>The <code>error</code> module defines the error types used throughout the wikiext library.</p>
+<p>The <code>error</code> module defines the error types used throughout the wicket library.</p>
 <h2 id="error-type"><a class="header" href="#error-type">Error Type</a></h2>
 <p>The <code>Error</code> enum is derived using <code>thiserror</code> and covers all error conditions:</p>
 <div class="table-wrapper">
@@ -775,9 +775,9 @@ April is the fourth month of the year...
 <p>All public functions in the library return this <code>Result</code> type.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-reference-overview"><a class="header" href="#cli-reference-overview">CLI Reference Overview</a></h1>
-<p>The <code>wikiext</code> CLI extracts plain text from Wikipedia XML dump files.</p>
+<p>The <code>wicket</code> CLI extracts plain text from Wikipedia XML dump files.</p>
 <h2 id="usage-2"><a class="header" href="#usage-2">Usage</a></h2>
-<pre><code class="language-sh">wikiext [OPTIONS] &lt;INPUT&gt;
+<pre><code class="language-sh">wicket [OPTIONS] &lt;INPUT&gt;
 </code></pre>
 <h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
 <div class="table-wrapper">
@@ -805,12 +805,12 @@ April is the fourth month of the year...
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-options"><a class="header" href="#cli-options">CLI Options</a></h1>
 <h2 id="input"><a class="header" href="#input">Input</a></h2>
-<pre><code class="language-sh">wikiext &lt;INPUT&gt;
+<pre><code class="language-sh">wicket &lt;INPUT&gt;
 </code></pre>
 <p>The input file is a positional argument. It must be a Wikipedia XML dump file, either uncompressed (<code>.xml</code>) or bzip2-compressed (<code>.xml.bz2</code>). Compression is detected automatically by file extension.</p>
 <h2 id="output-directory"><a class="header" href="#output-directory">Output Directory</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/
-wikiext dump.xml.bz2 -o -
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/
+wicket dump.xml.bz2 -o -
 </code></pre>
 <p><code>-o, --output &lt;PATH&gt;</code> – Specifies the output directory. Defaults to <code>text</code>.</p>
 <ul>
@@ -818,32 +818,32 @@ wikiext dump.xml.bz2 -o -
 <li>When set to <code>-</code>, all output is written to stdout without file splitting</li>
 </ul>
 <h2 id="file-size"><a class="header" href="#file-size">File Size</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -b 500K
-wikiext dump.xml.bz2 -b 1M
-wikiext dump.xml.bz2 -b 1G
-wikiext dump.xml.bz2 -b 0
+<pre><code class="language-sh">wicket dump.xml.bz2 -b 500K
+wicket dump.xml.bz2 -b 1M
+wicket dump.xml.bz2 -b 1G
+wicket dump.xml.bz2 -b 0
 </code></pre>
 <p><code>-b, --bytes &lt;SIZE&gt;</code> – Maximum bytes per output file. Defaults to <code>1M</code>.</p>
 <p>Supported suffixes: <code>K</code> (kilobytes), <code>M</code> (megabytes), <code>G</code> (gigabytes). When set to <code>0</code>, each article is written to its own file.</p>
 <h2 id="compression"><a class="header" href="#compression">Compression</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -c
+<pre><code class="language-sh">wicket dump.xml.bz2 -c
 </code></pre>
 <p><code>-c, --compress</code> – Compress output files using bzip2. Output files will have a <code>.bz2</code> extension.</p>
 <h2 id="json-output-1"><a class="header" href="#json-output-1">JSON Output</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --json
+<pre><code class="language-sh">wicket dump.xml.bz2 --json
 </code></pre>
 <p><code>--json</code> – Write output in JSON Lines format (one JSON object per line) instead of the default doc format.</p>
 <h2 id="parallel-workers"><a class="header" href="#parallel-workers">Parallel Workers</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --processes 8
+<pre><code class="language-sh">wicket dump.xml.bz2 --processes 8
 </code></pre>
 <p><code>--processes &lt;N&gt;</code> – Number of parallel workers for text cleaning. Defaults to the number of CPU cores.</p>
 <h2 id="quiet-mode"><a class="header" href="#quiet-mode">Quiet Mode</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -q
+<pre><code class="language-sh">wicket dump.xml.bz2 -q
 </code></pre>
 <p><code>-q, --quiet</code> – Suppress progress output on stderr. Useful when piping output to another command.</p>
 <h2 id="namespace-filtering"><a class="header" href="#namespace-filtering">Namespace Filtering</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --namespaces 0
-wikiext dump.xml.bz2 --namespaces 0,1,2
+<pre><code class="language-sh">wicket dump.xml.bz2 --namespaces 0
+wicket dump.xml.bz2 --namespaces 0,1,2
 </code></pre>
 <p><code>--namespaces &lt;IDS&gt;</code> – Comma-separated list of namespace IDs to extract. Defaults to <code>0</code> (main articles only).</p>
 <p>Common namespace IDs:</p>
@@ -868,32 +868,32 @@ wikiext dump.xml.bz2 --namespaces 0,1,2
 <h1 id="cli-examples"><a class="header" href="#cli-examples">CLI Examples</a></h1>
 <h2 id="basic-extraction-1"><a class="header" href="#basic-extraction-1">Basic Extraction</a></h2>
 <p>Extract text from a Wikipedia dump into the default <code>text/</code> directory:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2
 </code></pre>
 <h2 id="custom-output-directory"><a class="header" href="#custom-output-directory">Custom Output Directory</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/
 </code></pre>
 <h2 id="write-to-stdout-1"><a class="header" href="#write-to-stdout-1">Write to stdout</a></h2>
 <p>Pipe output directly to another command:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o - -q | wc -l
+<pre><code class="language-sh">wicket dump.xml.bz2 -o - -q | wc -l
 </code></pre>
 <h2 id="json-output-with-compression"><a class="header" href="#json-output-with-compression">JSON Output with Compression</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --json -c
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --json -c
 </code></pre>
 <h2 id="extract-talk-pages"><a class="header" href="#extract-talk-pages">Extract Talk Pages</a></h2>
 <p>Extract namespace 1 (talk pages) with 8 workers:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --namespaces 1 --processes 8
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --namespaces 1 --processes 8
 </code></pre>
 <h2 id="multiple-namespaces"><a class="header" href="#multiple-namespaces">Multiple Namespaces</a></h2>
 <p>Extract main articles and user pages:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --namespaces 0,2
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --namespaces 0,2
 </code></pre>
 <h2 id="small-output-files"><a class="header" href="#small-output-files">Small Output Files</a></h2>
 <p>Split output into 500 KB files:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ -b 500K
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ -b 500K
 </code></pre>
 <h2 id="one-article-per-file"><a class="header" href="#one-article-per-file">One Article per File</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ -b 0
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ -b 0
 </code></pre>
 <h2 id="output-directory-structure"><a class="header" href="#output-directory-structure">Output Directory Structure</a></h2>
 <p>After extraction, the output directory looks like:</p>
@@ -916,7 +916,7 @@ wikiext dump.xml.bz2 --namespaces 0,1,2
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="license"><a class="header" href="#license">License</a></h1>
-<p>wikiext is distributed under a dual license.</p>
+<p>wicket is distributed under a dual license.</p>
 <h2 id="mit-license"><a class="header" href="#mit-license">MIT License</a></h2>
 <pre><code class="language-text">MIT License
 

@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Architecture Overview - wikiext Documentation</title>
+        <title>Architecture Overview - wicket Documentation</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Documentation for wikiext - a high-performance Wikipedia dump text extractor in Rust">
+        <meta name="description" content="Documentation for wicket - a high-performance Wikipedia dump text extractor in Rust">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-79afe712.js";
+            window.path_to_searchindex_js = "../searchindex-4a8f690f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-58a54458.js"></script>
+        <script src="../toc-3588aad3.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext Documentation</h1>
+                    <h1 class="menu-title">wicket Documentation</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="architecture-overview"><a class="header" href="#architecture-overview">Architecture Overview</a></h1>
-<p>wikiext is designed as a high-performance, streaming Wikipedia dump text extractor. It processes multi-gigabyte XML dumps by combining streaming I/O with batch-based parallelism.</p>
+<p>wicket is designed as a high-performance, streaming Wikipedia dump text extractor. It processes multi-gigabyte XML dumps by combining streaming I/O with batch-based parallelism.</p>
 <h2 id="high-level-data-flow"><a class="header" href="#high-level-data-flow">High-Level Data Flow</a></h2>
 <pre><code class="language-text">Input (.xml / .xml.bz2)
   |
@@ -207,7 +207,7 @@ Output files (AA/wiki_00, AA/wiki_01, ...)
 <li><strong>Batch parallelism</strong> – CPU-bound wikitext cleaning is parallelized via rayon while I/O remains sequential</li>
 <li><strong>wikiextractor compatibility</strong> – output format and directory structure match the original Python tool</li>
 <li><strong>Fail-soft</strong> – malformed pages are logged and skipped rather than causing the entire process to abort</li>
-<li><strong>Library-first</strong> – core functionality lives in the <code>wikiext</code> library crate; the CLI is a thin wrapper</li>
+<li><strong>Library-first</strong> – core functionality lives in the <code>wicket</code> library crate; the CLI is a thin wrapper</li>
 </ul>
 
                     </main>

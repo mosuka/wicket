@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>クイックスタート - wikiext ドキュメント</title>
+        <title>クイックスタート - wicket ドキュメント</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="wikiext - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
+        <meta name="description" content="wicket - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-91eabf39.js";
+            window.path_to_searchindex_js = "../searchindex-590e1f14.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-36a9bb01.js"></script>
+        <script src="../toc-99189195.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext ドキュメント</h1>
+                    <h1 class="menu-title">wicket ドキュメント</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -188,18 +188,18 @@
 <h2 id="cli-クイックスタート"><a class="header" href="#cli-クイックスタート">CLI クイックスタート</a></h2>
 <h3 id="基本的な抽出"><a class="header" href="#基本的な抽出">基本的な抽出</a></h3>
 <p>Wikipedia ダンプからプレーンテキストを抽出:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/
 </code></pre>
 <p>ダンプを読み込み、メイン名前空間の全記事からプレーンテキストを抽出し、doc フォーマットで <code>output/</code> ディレクトリに出力します。ファイルは 1 MB ごとに分割されます。</p>
 <h3 id="json-出力"><a class="header" href="#json-出力">JSON 出力</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
 </code></pre>
 <h3 id="標準出力に書き出し"><a class="header" href="#標準出力に書き出し">標準出力に書き出し</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
 </code></pre>
 <h2 id="ライブラリ-クイックスタート"><a class="header" href="#ライブラリ-クイックスタート">ライブラリ クイックスタート</a></h2>
 <p>ダンプを開いて記事を処理する最小限の Rust プログラム:</p>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("simplewiki-latest-pages-articles.xml.bz2".as_ref(), &amp;[0])?;
@@ -219,8 +219,8 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 }</code></pre>
 <h2 id="次のステップ"><a class="header" href="#次のステップ">次のステップ</a></h2>
 <ul>
-<li><a href="../wikiext-cli.html">CLI リファレンス</a> – 全 CLI オプション</li>
-<li><a href="../architecture/overview.html">アーキテクチャ</a> – wikiext の内部構造</li>
+<li><a href="../wicket-cli.html">CLI リファレンス</a> – 全 CLI オプション</li>
+<li><a href="../architecture/overview.html">アーキテクチャ</a> – wicket の内部構造</li>
 </ul>
 
                     </main>

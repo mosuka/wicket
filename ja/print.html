@@ -3,13 +3,13 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>wikiext ドキュメント</title>
+        <title>wicket ドキュメント</title>
         <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="wikiext - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
+        <meta name="description" content="wicket - Rust製高性能 Wikipedia ダンプテキスト抽出ツールのドキュメント">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-91eabf39.js";
+            window.path_to_searchindex_js = "searchindex-590e1f14.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-36a9bb01.js"></script>
+        <script src="toc-99189195.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">wikiext ドキュメント</h1>
+                    <h1 class="menu-title">wicket ドキュメント</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -179,7 +179,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="はじめに"><a class="header" href="#はじめに">はじめに</a></h1>
-<p><strong>wikiext</strong> は Wikipedia XML ダンプファイルからプレーンテキストを抽出する高性能ツールです。Python 製の <a href="https://github.com/attardi/wikiextractor">wikiextractor</a> を Rust で再実装し、並列処理と効率的なストリーミングにより大幅な高速化を実現しています。</p>
+<p><strong>wicket</strong> は Wikipedia XML ダンプファイルからプレーンテキストを抽出する高性能ツールです。Python 製の <a href="https://github.com/attardi/wikiextractor">wikiextractor</a> を Rust で再実装し、並列処理と効率的なストリーミングにより大幅な高速化を実現しています。</p>
 <h2 id="主な機能"><a class="header" href="#主な機能">主な機能</a></h2>
 <ul>
 <li><strong>ストリーミング XML パース</strong> – メモリに全体を読み込まず、数十 GB のダンプに対応</li>
@@ -199,18 +199,18 @@ April is the fourth month of the year...
 <pre><code class="language-json">{"id":"1","url":"https://en.wikipedia.org/wiki/April","title":"April","text":"April is the fourth month of the year..."}
 </code></pre>
 <h2 id="現在のバージョン"><a class="header" href="#現在のバージョン">現在のバージョン</a></h2>
-<p>wikiext v0.1.0 – Rust Edition 2024、最小 Rust バージョン 1.85。</p>
+<p>wicket v0.1.0 – Rust Edition 2024、最小 Rust バージョン 1.85。</p>
 <h2 id="リンク"><a class="header" href="#リンク">リンク</a></h2>
 <ul>
 <li><a href="https://github.com/mosuka/wext">GitHub リポジトリ</a></li>
-<li><a href="https://crates.io/crates/wikiext">crates.io</a></li>
-<li><a href="https://docs.rs/wikiext">API ドキュメント (docs.rs)</a></li>
+<li><a href="https://crates.io/crates/wicket">crates.io</a></li>
+<li><a href="https://docs.rs/wicket">API ドキュメント (docs.rs)</a></li>
 <li><a href="../..">English Documentation</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="導入"><a class="header" href="#導入">導入</a></h1>
-<p>wikiext へようこそ！このセクションでは、すぐに使い始められるよう案内します。</p>
-<p>wikiext は Wikipedia XML ダンプファイルからプレーンテキストを抽出します。MediaWiki XML ダンプ（bzip2 圧縮にも対応）を読み込み、Wiki マークアップを除去し、doc または JSON フォーマットでクリーンなテキストを出力します。</p>
+<p>wicket へようこそ！このセクションでは、すぐに使い始められるよう案内します。</p>
+<p>wicket は Wikipedia XML ダンプファイルからプレーンテキストを抽出します。MediaWiki XML ダンプ（bzip2 圧縮にも対応）を読み込み、Wiki マークアップを除去し、doc または JSON フォーマットでクリーンなテキストを出力します。</p>
 <h2 id="次のステップ"><a class="header" href="#次のステップ">次のステップ</a></h2>
 <ul>
 <li><a href="#インストール">インストール</a> – ソースまたは crates.io からインストール</li>
@@ -225,24 +225,24 @@ April is the fourth month of the year...
 </ul>
 <h2 id="cli-ツールのインストール"><a class="header" href="#cli-ツールのインストール">CLI ツールのインストール</a></h2>
 <h3 id="cratesio-から"><a class="header" href="#cratesio-から">crates.io から</a></h3>
-<pre><code class="language-sh">cargo install wikiext-cli
+<pre><code class="language-sh">cargo install wicket-cli
 </code></pre>
 <h3 id="ソースから"><a class="header" href="#ソースから">ソースから</a></h3>
 <pre><code class="language-sh">git clone https://github.com/mosuka/wext.git
 cd wext
 cargo build --release
 </code></pre>
-<p>バイナリは <code>./target/release/wikiext</code> に生成されます。</p>
+<p>バイナリは <code>./target/release/wicket</code> に生成されます。</p>
 <p>インストールの確認:</p>
-<pre><code class="language-sh">./target/release/wikiext --help
+<pre><code class="language-sh">./target/release/wicket --help
 </code></pre>
 <h2 id="ライブラリとして使用"><a class="header" href="#ライブラリとして使用">ライブラリとして使用</a></h2>
 <p>プロジェクトの <code>Cargo.toml</code> に追加:</p>
 <pre><code class="language-toml">[dependencies]
-wikiext = "0.1.0"
+wicket = "0.1.0"
 </code></pre>
 <h2 id="サポートプラットフォーム"><a class="header" href="#サポートプラットフォーム">サポートプラットフォーム</a></h2>
-<p>wikiext は以下のプラットフォームでテストされています:</p>
+<p>wicket は以下のプラットフォームでテストされています:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -264,18 +264,18 @@ wikiext = "0.1.0"
 <h2 id="cli-クイックスタート"><a class="header" href="#cli-クイックスタート">CLI クイックスタート</a></h2>
 <h3 id="基本的な抽出"><a class="header" href="#基本的な抽出">基本的な抽出</a></h3>
 <p>Wikipedia ダンプからプレーンテキストを抽出:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/
 </code></pre>
 <p>ダンプを読み込み、メイン名前空間の全記事からプレーンテキストを抽出し、doc フォーマットで <code>output/</code> ディレクトリに出力します。ファイルは 1 MB ごとに分割されます。</p>
 <h3 id="json-出力"><a class="header" href="#json-出力">JSON 出力</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o output/ --json
 </code></pre>
 <h3 id="標準出力に書き出し"><a class="header" href="#標準出力に書き出し">標準出力に書き出し</a></h3>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2 -o - -q | head -50
 </code></pre>
 <h2 id="ライブラリ-クイックスタート"><a class="header" href="#ライブラリ-クイックスタート">ライブラリ クイックスタート</a></h2>
 <p>ダンプを開いて記事を処理する最小限の Rust プログラム:</p>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("simplewiki-latest-pages-articles.xml.bz2".as_ref(), &amp;[0])?;
@@ -296,11 +296,11 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="次のステップ-1"><a class="header" href="#次のステップ-1">次のステップ</a></h2>
 <ul>
 <li><a href="#cli-リファレンス概要">CLI リファレンス</a> – 全 CLI オプション</li>
-<li><a href="#アーキテクチャ概要">アーキテクチャ</a> – wikiext の内部構造</li>
+<li><a href="#アーキテクチャ概要">アーキテクチャ</a> – wicket の内部構造</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="アーキテクチャ概要"><a class="header" href="#アーキテクチャ概要">アーキテクチャ概要</a></h1>
-<p>wikiext は高性能なストリーミング Wikipedia ダンプテキスト抽出ツールとして設計されています。ストリーミング I/O とバッチベースの並列処理を組み合わせて、数十 GB の XML ダンプを処理します。</p>
+<p>wicket は高性能なストリーミング Wikipedia ダンプテキスト抽出ツールとして設計されています。ストリーミング I/O とバッチベースの並列処理を組み合わせて、数十 GB の XML ダンプを処理します。</p>
 <h2 id="全体のデータフロー"><a class="header" href="#全体のデータフロー">全体のデータフロー</a></h2>
 <pre><code class="language-text">入力 (.xml / .xml.bz2)
   |
@@ -326,18 +326,18 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <li><strong>バッチ並列処理</strong> – CPU バウンドな Wikitext クリーニングを rayon で並列化し、I/O は逐次実行</li>
 <li><strong>wikiextractor 互換</strong> – 出力フォーマットとディレクトリ構造は Python 版オリジナルと一致</li>
 <li><strong>フェイルソフト</strong> – 不正なページはログに記録してスキップし、全体の処理は停止しない</li>
-<li><strong>ライブラリファースト</strong> – コア機能は <code>wikiext</code> ライブラリクレートに集約。CLI は薄いラッパー</li>
+<li><strong>ライブラリファースト</strong> – コア機能は <code>wicket</code> ライブラリクレートに集約。CLI は薄いラッパー</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ワークスペース構成"><a class="header" href="#ワークスペース構成">ワークスペース構成</a></h1>
-<p>wikiext は <strong>Cargo workspace</strong> で2つのクレートと関連ディレクトリを管理しています。</p>
+<p>wicket は <strong>Cargo workspace</strong> で2つのクレートと関連ディレクトリを管理しています。</p>
 <h2 id="ディレクトリ構成"><a class="header" href="#ディレクトリ構成">ディレクトリ構成</a></h2>
 <pre><code class="language-text">wext/
 ├── Cargo.toml              # Workspace マニフェスト
 ├── Cargo.lock              # 依存ロックファイル
 ├── LICENSE                 # MIT OR Apache-2.0
 ├── README.md               # プロジェクト概要
-├── wikiext/                # コアライブラリクレート
+├── wicket/                # コアライブラリクレート
 │   ├── Cargo.toml
 │   └── src/
 │       ├── lib.rs          # モジュール宣言と再エクスポート
@@ -346,7 +346,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 │       ├── extractor.rs    # 出力フォーマット (doc/JSON)
 │       ├── output.rs       # ファイル分割とローテーション
 │       └── error.rs        # エラー型
-├── wikiext-cli/            # CLI バイナリクレート
+├── wicket-cli/            # CLI バイナリクレート
 │   ├── Cargo.toml
 │   └── src/
 │       └── main.rs         # CLI エントリーポイント
@@ -364,7 +364,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
         └── deploy-docs.yml # ドキュメントデプロイ
 </code></pre>
 <h2 id="クレート詳細"><a class="header" href="#クレート詳細">クレート詳細</a></h2>
-<h3 id="wikiext-コアライブラリ"><a class="header" href="#wikiext-コアライブラリ"><code>wikiext</code> (コアライブラリ)</a></h3>
+<h3 id="wicket-コアライブラリ"><a class="header" href="#wicket-コアライブラリ"><code>wicket</code> (コアライブラリ)</a></h3>
 <p>ストリーミング XML パース、Wikitext クリーニング、出力フォーマット、ファイル分割を提供するコアライブラリです。</p>
 <div class="table-wrapper">
 <table>
@@ -384,8 +384,8 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 </tbody>
 </table>
 </div>
-<h3 id="wikiext-cli-cli-バイナリ"><a class="header" href="#wikiext-cli-cli-バイナリ"><code>wikiext-cli</code> (CLI バイナリ)</a></h3>
-<p>wikiext の機能をコマンドラインインターフェースで提供します。</p>
+<h3 id="wicket-cli-cli-バイナリ"><a class="header" href="#wicket-cli-cli-バイナリ"><code>wicket-cli</code> (CLI バイナリ)</a></h3>
+<p>wicket の機能をコマンドラインインターフェースで提供します。</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -397,7 +397,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <tr><td><code>bzip2</code></td><td>0.6</td><td>圧縮出力サポート</td></tr>
 <tr><td><code>env_logger</code></td><td>0.11</td><td>ログ出力</td></tr>
 <tr><td><code>anyhow</code></td><td>1.0</td><td>バイナリのエラーハンドリング</td></tr>
-<tr><td><code>wikiext</code></td><td>0.1</td><td>コアライブラリ（workspace メンバー）</td></tr>
+<tr><td><code>wicket</code></td><td>0.1</td><td>コアライブラリ（workspace メンバー）</td></tr>
 </tbody>
 </table>
 </div>
@@ -405,7 +405,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <p>Cargo resolver version 3（Rust Edition 2024）を使用:</p>
 <pre><code class="language-toml">[workspace]
 resolver = "3"
-members = ["wikiext", "wikiext-cli"]
+members = ["wicket", "wicket-cli"]
 
 [workspace.package]
 version = "0.1.0"
@@ -415,7 +415,7 @@ license = "MIT OR Apache-2.0"
 <p>共有依存はワークスペースレベルの <code>[workspace.dependencies]</code> で定義し、各クレートでは <code>{ workspace = true }</code> で参照します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="モジュール設計"><a class="header" href="#モジュール設計">モジュール設計</a></h1>
-<p><code>wikiext</code> ライブラリクレートは5つのモジュールで構成され、それぞれ明確な責務を持ちます。</p>
+<p><code>wicket</code> ライブラリクレートは5つのモジュールで構成され、それぞれ明確な責務を持ちます。</p>
 <h2 id="モジュール概要"><a class="header" href="#モジュール概要">モジュール概要</a></h2>
 <div class="table-wrapper">
 <table>
@@ -481,7 +481,7 @@ pub use output::{OutputConfig, OutputSplitter};
 <span class="boring">}</span></code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="データフロー"><a class="header" href="#データフロー">データフロー</a></h1>
-<p>このページでは、wikiext における入力から出力までのデータの流れを説明します。</p>
+<p>このページでは、wicket における入力から出力までのデータの流れを説明します。</p>
 <h2 id="処理パイプライン"><a class="header" href="#処理パイプライン">処理パイプライン</a></h2>
 <pre><code class="language-text">入力 (.xml / .xml.bz2)
   |
@@ -531,7 +531,7 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <li>パスが <code>"-"</code> の場合は stdout に出力</li>
 </ul>
 <h2 id="並列化戦略"><a class="header" href="#並列化戦略">並列化戦略</a></h2>
-<p>wikiext はチャネルを使ったパイプラインではなく、バッチベースの並列化アプローチを採用しています:</p>
+<p>wicket はチャネルを使ったパイプラインではなく、バッチベースの並列化アプローチを採用しています:</p>
 <ol>
 <li>メインスレッドが <code>DumpReader</code> から1000記事ずつバッチで読み込み</li>
 <li>各バッチを <code>rayon::par_iter()</code> で並列処理</li>
@@ -541,10 +541,10 @@ OutputSplitter (逐次書き込み、ファイルローテーション)
 <p>このアプローチはシンプルで、出力順序を維持し、CPU バウンドなクリーニング処理を効果的に並列化しつつ、I/O バウンドな読み込みと書き込みは逐次実行します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ライブラリ-api-概要"><a class="header" href="#ライブラリ-api-概要">ライブラリ API 概要</a></h1>
-<p><code>wikiext</code> クレートは、Wikipedia XML ダンプファイルからプレーンテキストを抽出する Rust API を提供します。</p>
+<p><code>wicket</code> クレートは、Wikipedia XML ダンプファイルからプレーンテキストを抽出する Rust API を提供します。</p>
 <h2 id="インストール-1"><a class="header" href="#インストール-1">インストール</a></h2>
 <pre><code class="language-toml">[dependencies]
-wikiext = "0.1.0"
+wicket = "0.1.0"
 </code></pre>
 <h2 id="モジュール一覧"><a class="header" href="#モジュール一覧">モジュール一覧</a></h2>
 <div class="table-wrapper">
@@ -553,16 +553,16 @@ wikiext = "0.1.0"
 <tr><th>モジュール</th><th>主な型</th><th>用途</th></tr>
 </thead>
 <tbody>
-<tr><td><code>wikiext::dump</code></td><td><code>Article</code>, <code>DumpReader</code>, <code>open_dump()</code></td><td>ストリーミング XML ダンプパース</td></tr>
-<tr><td><code>wikiext::cleaner</code></td><td><code>clean_wikitext()</code></td><td>Wikitext → プレーンテキスト変換</td></tr>
-<tr><td><code>wikiext::extractor</code></td><td><code>OutputFormat</code>, <code>format_page()</code>, <code>make_url()</code></td><td>出力フォーマット</td></tr>
-<tr><td><code>wikiext::output</code></td><td><code>OutputConfig</code>, <code>OutputSplitter</code></td><td>ファイル分割とローテーション</td></tr>
-<tr><td><code>wikiext::error</code></td><td><code>Error</code></td><td>エラー型定義</td></tr>
+<tr><td><code>wicket::dump</code></td><td><code>Article</code>, <code>DumpReader</code>, <code>open_dump()</code></td><td>ストリーミング XML ダンプパース</td></tr>
+<tr><td><code>wicket::cleaner</code></td><td><code>clean_wikitext()</code></td><td>Wikitext → プレーンテキスト変換</td></tr>
+<tr><td><code>wicket::extractor</code></td><td><code>OutputFormat</code>, <code>format_page()</code>, <code>make_url()</code></td><td>出力フォーマット</td></tr>
+<tr><td><code>wicket::output</code></td><td><code>OutputConfig</code>, <code>OutputSplitter</code></td><td>ファイル分割とローテーション</td></tr>
+<tr><td><code>wicket::error</code></td><td><code>Error</code></td><td>エラー型定義</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="使用例"><a class="header" href="#使用例">使用例</a></h2>
-<pre class="playground"><code class="language-rust">use wikiext::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
+<pre class="playground"><code class="language-rust">use wicket::{open_dump, clean_wikitext, format_page, make_url, OutputFormat};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let reader = open_dump("dump.xml.bz2".as_ref(), &amp;[0])?;
@@ -581,7 +581,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     Ok(())
 }</code></pre>
 <h2 id="api-ドキュメント"><a class="header" href="#api-ドキュメント">API ドキュメント</a></h2>
-<p>完全な API ドキュメントは <a href="https://docs.rs/wikiext">docs.rs/wikiext</a> で参照できます。</p>
+<p>完全な API ドキュメントは <a href="https://docs.rs/wicket">docs.rs/wicket</a> で参照できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dump"><a class="header" href="#dump">dump</a></h1>
 <p><code>dump</code> モジュールは MediaWiki ダンプファイルのストリーミング XML パースを提供します。</p>
@@ -619,7 +619,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="使用例-1"><a class="header" href="#使用例-1">使用例</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use wikiext::open_dump;
+</span>use wicket::open_dump;
 
 let reader = open_dump("dump.xml.bz2".as_ref(), &amp;[0])?;
 println!("URL base: {}", reader.url_base());
@@ -656,7 +656,7 @@ for result in reader {
 <h2 id="使用例-2"><a class="header" href="#使用例-2">使用例</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use wikiext::clean_wikitext;
+</span>use wicket::clean_wikitext;
 
 let wikitext = "'''April''' is the [[month|fourth month]] of the year.";
 let text = clean_wikitext(wikitext);
@@ -751,7 +751,7 @@ April is the fourth month of the year...
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="error"><a class="header" href="#error">error</a></h1>
-<p><code>error</code> モジュールは wikiext ライブラリ全体で使用されるエラー型を定義します。</p>
+<p><code>error</code> モジュールは wicket ライブラリ全体で使用されるエラー型を定義します。</p>
 <h2 id="エラー型"><a class="header" href="#エラー型">エラー型</a></h2>
 <p><code>Error</code> 列挙型は <code>thiserror</code> を使用して導出され、すべてのエラー条件をカバーします:</p>
 <div class="table-wrapper">
@@ -775,9 +775,9 @@ April is the fourth month of the year...
 <p>ライブラリのすべてのパブリック関数はこの <code>Result</code> 型を返します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-リファレンス概要"><a class="header" href="#cli-リファレンス概要">CLI リファレンス概要</a></h1>
-<p><code>wikiext</code> CLI は Wikipedia XML ダンプファイルからプレーンテキストを抽出します。</p>
+<p><code>wicket</code> CLI は Wikipedia XML ダンプファイルからプレーンテキストを抽出します。</p>
 <h2 id="使い方"><a class="header" href="#使い方">使い方</a></h2>
-<pre><code class="language-sh">wikiext [OPTIONS] &lt;INPUT&gt;
+<pre><code class="language-sh">wicket [OPTIONS] &lt;INPUT&gt;
 </code></pre>
 <h2 id="クイックリファレンス"><a class="header" href="#クイックリファレンス">クイックリファレンス</a></h2>
 <div class="table-wrapper">
@@ -805,12 +805,12 @@ April is the fourth month of the year...
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-オプション"><a class="header" href="#cli-オプション">CLI オプション</a></h1>
 <h2 id="入力"><a class="header" href="#入力">入力</a></h2>
-<pre><code class="language-sh">wikiext &lt;INPUT&gt;
+<pre><code class="language-sh">wicket &lt;INPUT&gt;
 </code></pre>
 <p>入力ファイルは位置引数です。Wikipedia XML ダンプファイルで、非圧縮（<code>.xml</code>）または bzip2 圧縮（<code>.xml.bz2</code>）のいずれかです。圧縮はファイル拡張子で自動検出されます。</p>
 <h2 id="出力ディレクトリ"><a class="header" href="#出力ディレクトリ">出力ディレクトリ</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/
-wikiext dump.xml.bz2 -o -
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/
+wicket dump.xml.bz2 -o -
 </code></pre>
 <p><code>-o, --output &lt;PATH&gt;</code> – 出力ディレクトリを指定します。デフォルトは <code>text</code>。</p>
 <ul>
@@ -818,32 +818,32 @@ wikiext dump.xml.bz2 -o -
 <li><code>-</code> を指定した場合、ファイル分割せずにすべての出力を stdout に書き込み</li>
 </ul>
 <h2 id="ファイルサイズ"><a class="header" href="#ファイルサイズ">ファイルサイズ</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -b 500K
-wikiext dump.xml.bz2 -b 1M
-wikiext dump.xml.bz2 -b 1G
-wikiext dump.xml.bz2 -b 0
+<pre><code class="language-sh">wicket dump.xml.bz2 -b 500K
+wicket dump.xml.bz2 -b 1M
+wicket dump.xml.bz2 -b 1G
+wicket dump.xml.bz2 -b 0
 </code></pre>
 <p><code>-b, --bytes &lt;SIZE&gt;</code> – 出力ファイルの最大バイト数。デフォルトは <code>1M</code>。</p>
 <p>サポートされるサフィックス: <code>K</code>（キロバイト）、<code>M</code>（メガバイト）、<code>G</code>（ギガバイト）。<code>0</code> を指定すると各記事が個別のファイルに書き込まれます。</p>
 <h2 id="圧縮"><a class="header" href="#圧縮">圧縮</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -c
+<pre><code class="language-sh">wicket dump.xml.bz2 -c
 </code></pre>
 <p><code>-c, --compress</code> – bzip2 で出力ファイルを圧縮。出力ファイルには <code>.bz2</code> 拡張子が付きます。</p>
 <h2 id="json-出力-1"><a class="header" href="#json-出力-1">JSON 出力</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --json
+<pre><code class="language-sh">wicket dump.xml.bz2 --json
 </code></pre>
 <p><code>--json</code> – デフォルトの doc フォーマットの代わりに JSON Lines フォーマット（1行1JSON オブジェクト）で出力します。</p>
 <h2 id="並列ワーカー数"><a class="header" href="#並列ワーカー数">並列ワーカー数</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --processes 8
+<pre><code class="language-sh">wicket dump.xml.bz2 --processes 8
 </code></pre>
 <p><code>--processes &lt;N&gt;</code> – テキストクリーニングの並列ワーカー数。デフォルトは CPU コア数。</p>
 <h2 id="静粛モード"><a class="header" href="#静粛モード">静粛モード</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -q
+<pre><code class="language-sh">wicket dump.xml.bz2 -q
 </code></pre>
 <p><code>-q, --quiet</code> – stderr への進捗出力を抑制。パイプで他のコマンドに出力を渡す際に便利です。</p>
 <h2 id="名前空間フィルタリング"><a class="header" href="#名前空間フィルタリング">名前空間フィルタリング</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 --namespaces 0
-wikiext dump.xml.bz2 --namespaces 0,1,2
+<pre><code class="language-sh">wicket dump.xml.bz2 --namespaces 0
+wicket dump.xml.bz2 --namespaces 0,1,2
 </code></pre>
 <p><code>--namespaces &lt;IDS&gt;</code> – 抽出する名前空間 ID のカンマ区切りリスト。デフォルトは <code>0</code>（メイン記事のみ）。</p>
 <p>主な名前空間 ID:</p>
@@ -868,32 +868,32 @@ wikiext dump.xml.bz2 --namespaces 0,1,2
 <h1 id="cli-使用例"><a class="header" href="#cli-使用例">CLI 使用例</a></h1>
 <h2 id="基本的な抽出-1"><a class="header" href="#基本的な抽出-1">基本的な抽出</a></h2>
 <p>Wikipedia ダンプからテキストをデフォルトの <code>text/</code> ディレクトリに抽出:</p>
-<pre><code class="language-sh">wikiext simplewiki-latest-pages-articles.xml.bz2
+<pre><code class="language-sh">wicket simplewiki-latest-pages-articles.xml.bz2
 </code></pre>
 <h2 id="カスタム出力ディレクトリ"><a class="header" href="#カスタム出力ディレクトリ">カスタム出力ディレクトリ</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/
 </code></pre>
 <h2 id="標準出力に書き出し-1"><a class="header" href="#標準出力に書き出し-1">標準出力に書き出し</a></h2>
 <p>パイプで他のコマンドに直接出力:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o - -q | wc -l
+<pre><code class="language-sh">wicket dump.xml.bz2 -o - -q | wc -l
 </code></pre>
 <h2 id="json-出力--圧縮"><a class="header" href="#json-出力--圧縮">JSON 出力 + 圧縮</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --json -c
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --json -c
 </code></pre>
 <h2 id="トークページの抽出"><a class="header" href="#トークページの抽出">トークページの抽出</a></h2>
 <p>名前空間 1（トークページ）を 8 ワーカーで抽出:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --namespaces 1 --processes 8
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --namespaces 1 --processes 8
 </code></pre>
 <h2 id="複数の名前空間"><a class="header" href="#複数の名前空間">複数の名前空間</a></h2>
 <p>メイン記事とユーザーページを抽出:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ --namespaces 0,2
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ --namespaces 0,2
 </code></pre>
 <h2 id="小さいファイルに分割"><a class="header" href="#小さいファイルに分割">小さいファイルに分割</a></h2>
 <p>出力を 500 KB ファイルに分割:</p>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ -b 500K
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ -b 500K
 </code></pre>
 <h2 id="1記事1ファイル"><a class="header" href="#1記事1ファイル">1記事1ファイル</a></h2>
-<pre><code class="language-sh">wikiext dump.xml.bz2 -o output/ -b 0
+<pre><code class="language-sh">wicket dump.xml.bz2 -o output/ -b 0
 </code></pre>
 <h2 id="出力ディレクトリ構造"><a class="header" href="#出力ディレクトリ構造">出力ディレクトリ構造</a></h2>
 <p>抽出後の出力ディレクトリ:</p>
@@ -916,7 +916,7 @@ wikiext dump.xml.bz2 --namespaces 0,1,2
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ライセンス"><a class="header" href="#ライセンス">ライセンス</a></h1>
-<p>wikiext はデュアルライセンスで配布されています。</p>
+<p>wicket はデュアルライセンスで配布されています。</p>
 <h2 id="mit-ライセンス"><a class="header" href="#mit-ライセンス">MIT ライセンス</a></h2>
 <pre><code class="language-text">MIT License
 
