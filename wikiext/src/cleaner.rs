@@ -360,7 +360,8 @@ mod tests {
 
     #[test]
     fn test_table_removal() {
-        let input = "Before table.\n{| class=\"wikitable\"\n|-\n! Header\n|-\n| Cell\n|}\nAfter table.";
+        let input =
+            "Before table.\n{| class=\"wikitable\"\n|-\n! Header\n|-\n| Cell\n|}\nAfter table.";
         let result = clean_wikitext(input);
         assert!(
             !result.contains("Header"),

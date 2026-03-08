@@ -261,7 +261,9 @@ mod tests {
             "Some text.",
             OutputFormat::Doc,
         );
-        assert!(result.contains("title=\"A &lt;b&gt;bold&lt;/b&gt; &amp; &quot;quoted&quot; title\""));
+        assert!(
+            result.contains("title=\"A &lt;b&gt;bold&lt;/b&gt; &amp; &quot;quoted&quot; title\"")
+        );
         assert!(result.contains("url=\"https://en.wikipedia.org/wiki/A_&lt;b&gt;bold&lt;/b&gt;_&amp;_&quot;quoted&quot;_title\""));
     }
 
@@ -281,13 +283,7 @@ mod tests {
 
     #[test]
     fn test_doc_format_trailing_newline() {
-        let result = format_page(
-            1,
-            "Title",
-            "https://example.com",
-            "Text",
-            OutputFormat::Doc,
-        );
+        let result = format_page(1, "Title", "https://example.com", "Text", OutputFormat::Doc);
         // Doc format ends with </doc>\n\n (one blank line after)
         assert!(result.ends_with("</doc>\n\n"));
     }

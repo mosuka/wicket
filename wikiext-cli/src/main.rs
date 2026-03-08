@@ -3,7 +3,10 @@ use std::path::PathBuf;
 use anyhow::{Context, Result};
 use clap::Parser;
 use rayon::prelude::*;
-use wikiext::{clean_wikitext, format_page, open_dump, parse_file_size, OutputConfig, OutputFormat, OutputSplitter};
+use wikiext::{
+    OutputConfig, OutputFormat, OutputSplitter, clean_wikitext, format_page, open_dump,
+    parse_file_size,
+};
 
 /// Extract plain text from Wikipedia XML dumps.
 #[derive(Parser)]
@@ -61,8 +64,8 @@ fn main() -> Result<()> {
         .collect::<Result<Vec<_>>>()?;
 
     // Parse file size.
-    let max_file_size =
-        parse_file_size(&cli.bytes).with_context(|| format!("invalid bytes value: '{}'", cli.bytes))?;
+    let max_file_size = parse_file_size(&cli.bytes)
+        .with_context(|| format!("invalid bytes value: '{}'", cli.bytes))?;
 
     // Configure rayon thread pool.
     if let Some(n) = cli.processes {
@@ -79,8 +82,8 @@ fn main() -> Result<()> {
     };
 
     // Open the dump.
-    let mut dump_reader =
-        open_dump(&cli.input, &namespaces).with_context(|| format!("failed to open dump: {:?}", cli.input))?;
+    let mut dump_reader = open_dump(&cli.input, &namespaces)
+        .with_context(|| format!("failed to open dump: {:?}", cli.input))?;
 
     // We need to consume at least one item to initialize the reader and get url_base.
     // Collect articles in batches for parallel processing.

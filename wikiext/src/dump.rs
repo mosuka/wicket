@@ -3,8 +3,8 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::path::Path;
 
-use quick_xml::events::Event;
 use quick_xml::Reader;
+use quick_xml::events::Event;
 
 use crate::error::Error;
 
@@ -302,10 +302,7 @@ impl<R: BufRead> Iterator for DumpReader<R> {
 /// # Errors
 ///
 /// Returns an error if the file cannot be opened or read.
-pub fn open_dump(
-    path: &Path,
-    namespaces: &[i32],
-) -> Result<DumpReader<Box<dyn BufRead>>, Error> {
+pub fn open_dump(path: &Path, namespaces: &[i32]) -> Result<DumpReader<Box<dyn BufRead>>, Error> {
     let file = std::fs::File::open(path)?;
     let buf_reader = BufReader::new(file);
 

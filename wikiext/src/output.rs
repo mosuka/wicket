@@ -2,8 +2,8 @@ use std::fs::{self, File};
 use std::io::{self, BufWriter, Write};
 use std::path::PathBuf;
 
-use bzip2::write::BzEncoder;
 use bzip2::Compression;
+use bzip2::write::BzEncoder;
 
 use crate::error::Error;
 
