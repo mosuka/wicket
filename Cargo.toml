@@ -13,6 +13,7 @@ readme = "README.md"
 keywords = ["wikipedia", "data", "extraction", "processing", "nlp"]
 categories = ["text-processing"]
 license = "MIT"
+rust-version = "1.85"
 
 [workspace.dependencies]
 wikiext = { version = "0.1.0", path = "./wikiext" }
