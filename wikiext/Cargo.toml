@@ -2,8 +2,14 @@
 name = "wikiext"
 version.workspace = true
 edition.workspace = true
+description.workspace = true
+documentation.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
 license.workspace = true
-description = "Extract plain text from Wikipedia XML dumps by removing MediaWiki markup"
 
 [dependencies]
 thiserror.workspace = true
