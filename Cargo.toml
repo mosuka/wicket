@@ -3,7 +3,7 @@ members = ["wicket", "wicket-cli"]
 resolver = "3"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Wikipedia corpus knowledge extractor."
 documentation = "https://docs.rs/wicket"
@@ -16,7 +16,7 @@ license = "MIT"
 rust-version = "1.85"
 
 [workspace.dependencies]
-wicket = { version = "0.1.0", path = "./wicket" }
+wicket = { version = "0.1.1", path = "./wicket" }
 
 thiserror = "2.0.18"
 log = "0.4.29"
