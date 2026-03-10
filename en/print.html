@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d8f8b30e.js";
+            window.path_to_searchindex_js = "searchindex-3297fc44.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3588aad3.js"></script>
@@ -635,11 +635,15 @@ for result in reader {
 <h2 id="functions-1"><a class="header" href="#functions-1">Functions</a></h2>
 <h3 id="clean_wikitextwikitext-str---string"><a class="header" href="#clean_wikitextwikitext-str---string"><code>clean_wikitext(wikitext: &amp;str) -&gt; String</code></a></h3>
 <p>Converts raw wikitext into clean plain text by removing all MediaWiki markup.</p>
-<p>The cleaning process uses a two-stage approach:</p>
+<p>The cleaning process uses a three-stage approach:</p>
 <ol>
 <li><strong>AST-based cleaning</strong> – Uses <code>parse_wiki_text_2</code> to parse the wikitext into an AST and extracts text content from relevant nodes</li>
 <li><strong>Regex fallback</strong> – When AST parsing fails or for markup not handled by the AST, applies regex-based pattern removal</li>
+<li><strong>Post-processing</strong> – Removes markup remnants that survive the first two stages, such as orphaned template braces (<code>}}</code>), template parameter lines, and HTML comment fragments</li>
 </ol>
+<p>The parser is configured with both English and Japanese Wikipedia namespaces,
+so it correctly handles dumps from either language edition without requiring
+any configuration changes.</p>
 <h3 id="handled-markup"><a class="header" href="#handled-markup">Handled Markup</a></h3>
 <p>The cleaner handles the following MediaWiki markup elements:</p>
 <ul>
@@ -648,10 +652,12 @@ for result in reader {
 <li><strong>External links</strong> – <code>[https://example.com text]</code></li>
 <li><strong>Templates</strong> – <code>{{template|...}}</code></li>
 <li><strong>HTML tags</strong> – <code>&lt;ref&gt;</code>, <code>&lt;nowiki&gt;</code>, <code>&lt;gallery&gt;</code>, etc.</li>
-<li><strong>Categories</strong> – <code>[[Category:...]]</code></li>
+<li><strong>Categories</strong> – <code>[[Category:...]]</code> and <code>[[カテゴリ:...]]</code></li>
+<li><strong>Files</strong> – <code>[[File:...]]</code>, <code>[[Image:...]]</code>, and <code>[[ファイル:...]]</code></li>
 <li><strong>Tables</strong> – Wikitext table markup</li>
 <li><strong>Comments</strong> – <code>&lt;!-- comments --&gt;</code></li>
 <li><strong>Magic words</strong> – <code>__TOC__</code>, <code>__NOTOC__</code>, etc.</li>
+<li><strong>Redirects</strong> – <code>#REDIRECT</code> and <code>#転送</code></li>
 </ul>
 <h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]

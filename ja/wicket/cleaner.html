@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-474af55e.js";
+            window.path_to_searchindex_js = "../searchindex-e88338bf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-99189195.js"></script>
@@ -185,11 +185,14 @@
 <h2 id="関数"><a class="header" href="#関数">関数</a></h2>
 <h3 id="clean_wikitextwikitext-str---string"><a class="header" href="#clean_wikitextwikitext-str---string"><code>clean_wikitext(wikitext: &amp;str) -&gt; String</code></a></h3>
 <p>生の Wikitext を、すべての MediaWiki マークアップを除去したクリーンなプレーンテキストに変換します。</p>
-<p>クリーニング処理は2段階のアプローチを使用します:</p>
+<p>クリーニング処理は3段階のアプローチを使用します:</p>
 <ol>
 <li><strong>AST ベースクリーニング</strong> – <code>parse_wiki_text_2</code> で Wikitext を AST にパースし、関連ノードからテキストコンテンツを抽出</li>
 <li><strong>正規表現フォールバック</strong> – AST パース失敗時や AST で処理できないマークアップに対して、正規表現ベースのパターン除去を適用</li>
+<li><strong>後処理</strong> – 最初の2段階で残ったマークアップ残骸（孤立したテンプレート閉じ括弧 <code>}}</code>、テンプレートパラメータ行、HTML コメント断片など）を除去</li>
 </ol>
+<p>パーサーは英語版・日本語版両方の Wikipedia 名前空間に対応しており、
+設定変更なしでどちらの言語のダンプも正しく処理できます。</p>
 <h3 id="対応するマークアップ"><a class="header" href="#対応するマークアップ">対応するマークアップ</a></h3>
 <p>クリーナーは以下の MediaWiki マークアップ要素を処理します:</p>
 <ul>
@@ -198,10 +201,12 @@
 <li><strong>外部リンク</strong> – <code>[https://example.com テキスト]</code></li>
 <li><strong>テンプレート</strong> – <code>{{テンプレート|...}}</code></li>
 <li><strong>HTML タグ</strong> – <code>&lt;ref&gt;</code>、<code>&lt;nowiki&gt;</code>、<code>&lt;gallery&gt;</code> など</li>
-<li><strong>カテゴリ</strong> – <code>[[Category:...]]</code></li>
+<li><strong>カテゴリ</strong> – <code>[[Category:...]]</code> および <code>[[カテゴリ:...]]</code></li>
+<li><strong>ファイル</strong> – <code>[[File:...]]</code>、<code>[[Image:...]]</code>、<code>[[ファイル:...]]</code></li>
 <li><strong>テーブル</strong> – Wikitext テーブルマークアップ</li>
 <li><strong>コメント</strong> – <code>&lt;!-- コメント --&gt;</code></li>
 <li><strong>マジックワード</strong> – <code>__TOC__</code>、<code>__NOTOC__</code> など</li>
+<li><strong>リダイレクト</strong> – <code>#REDIRECT</code> および <code>#転送</code></li>
 </ul>
 <h2 id="使用例"><a class="header" href="#使用例">使用例</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
