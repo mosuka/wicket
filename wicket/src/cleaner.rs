@@ -162,10 +162,6 @@ static RE_REF: LazyLock<Regex> =
 static RE_TABLE: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?s)\{\|.*?\|\}").expect("invalid regex"));
 
-/// Matches multiple consecutive blank lines.
-static RE_MULTI_NEWLINE: LazyLock<Regex> =
-    LazyLock::new(|| Regex::new(r"\n{3,}").expect("invalid regex"));
-
 /// Matches multiple consecutive spaces.
 static RE_MULTI_SPACE: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r" {2,}").expect("invalid regex"));
@@ -340,29 +336,49 @@ fn extract_text_from_nodes(nodes: &[Node], output: &mut String) {
 /// A `String` with markup remnants removed and whitespace normalized.
 #[inline]
 fn clean_text(text: &str) -> String {
-    // Remove markup remnants line by line
-    let lines: Vec<String> = text
-        .lines()
-        .map(|line| {
-            let trimmed = line.trim();
-            // Skip lines that are purely template parameter syntax
-            if RE_TEMPLATE_PARAM_LINE.is_match(trimmed) {
-                return String::new();
+    // Single-pass approach: write directly into a pre-allocated buffer instead
+    // of collecting into Vec<String> and then joining.  Blank-line runs are
+    // tracked with a counter so that RE_MULTI_NEWLINE is no longer needed.
+    let mut result = String::with_capacity(text.len());
+    // Number of consecutive blank (or skipped) lines since the last content line.
+    let mut blank_run: usize = 0;
+
+    for line in text.lines() {
+        let trimmed = line.trim();
+
+        // Skip lines that are purely template parameter syntax.
+        if RE_TEMPLATE_PARAM_LINE.is_match(trimmed) {
+            blank_run += 1;
+            continue;
+        }
+
+        // Apply inline cleanups.  replace_all returns Cow<str>, so no
+        // allocation occurs when the regex finds no match in this line.
+        let s1 = RE_ORPHANED_TEMPLATE_CLOSE.replace_all(trimmed, "");
+        let s2 = RE_COMMENT_REMNANT.replace_all(&s1, "");
+        let s3 = RE_MULTI_SPACE.replace_all(s2.trim(), " ");
+        let cleaned = s3.trim();
+
+        if cleaned.is_empty() {
+            blank_run += 1;
+            continue;
+        }
+
+        // Insert separator before the content line.
+        if !result.is_empty() {
+            if blank_run >= 1 {
+                // One or more blank lines → paragraph break (\n\n).
+                result.push_str("\n\n");
+            } else {
+                result.push('\n');
             }
-            // Remove orphaned template closing braces and preceding param text
-            let cleaned = RE_ORPHANED_TEMPLATE_CLOSE.replace_all(trimmed, "");
-            // Remove comment remnants (e.g. "!--comment--")
-            let cleaned = RE_COMMENT_REMNANT.replace_all(&cleaned, "");
-            RE_MULTI_SPACE.replace_all(cleaned.trim(), " ").to_string()
-        })
-        .collect();
+        }
 
-    let joined = lines.join("\n");
+        result.push_str(cleaned);
+        blank_run = 0;
+    }
 
-    // Collapse multiple blank lines into one
-    let result = RE_MULTI_NEWLINE.replace_all(&joined, "\n\n");
-
-    result.trim().to_string()
+    result
 }
 
 /// Cleans wikitext using regex-based heuristics as a fallback.
@@ -378,47 +394,60 @@ fn clean_text(text: &str) -> String {
 ///
 /// A `String` with markup removed via regex patterns.
 fn fallback_clean(wikitext: &str) -> String {
-    let mut text = wikitext.to_string();
+    use std::borrow::Cow;
 
-    // Remove ref tags first (before general HTML tag removal)
-    text = RE_REF.replace_all(&text, "").to_string();
+    // Keep the text as Cow<str> throughout.  replace_all returns Cow::Borrowed
+    // when the regex finds no match, so no String clone is made unless the
+    // pattern actually matches.  The `sub!` macro scopes the borrow of `text`
+    // strictly inside the replace_all call; only the owned result is assigned.
+    let mut text: Cow<str> = Cow::Borrowed(wikitext);
 
-    // Remove tables
-    text = RE_TABLE.replace_all(&text, "").to_string();
-
-    // Remove templates (iterate for nested templates)
-    for _ in 0..10 {
-        let replaced = RE_TEMPLATE.replace_all(&text, "").to_string();
-        if replaced == text {
-            break;
-        }
-        text = replaced;
+    macro_rules! sub {
+        ($re:expr, $rep:expr) => {
+            if let Cow::Owned(s) = $re.replace_all(text.as_ref(), $rep) {
+                text = Cow::Owned(s);
+            }
+        };
     }
 
-    // Remove category and file links
-    text = RE_CATEGORY.replace_all(&text, "").to_string();
-    text = RE_FILE.replace_all(&text, "").to_string();
+    // Remove ref tags first (before general HTML tag removal).
+    sub!(RE_REF, "");
 
-    // Convert piped links to display text
-    text = RE_PIPED_LINK.replace_all(&text, "$1").to_string();
+    // Remove tables.
+    sub!(RE_TABLE, "");
 
-    // Convert simple links to target text
-    text = RE_SIMPLE_LINK.replace_all(&text, "$1").to_string();
+    // Remove templates (iterate for nested templates).
+    for _ in 0..10 {
+        match RE_TEMPLATE.replace_all(text.as_ref(), "") {
+            Cow::Owned(s) => text = Cow::Owned(s),
+            Cow::Borrowed(_) => break,
+        }
+    }
 
-    // Convert external links to label text
-    text = RE_EXTERNAL_LINK.replace_all(&text, "$1").to_string();
+    // Remove category and file links.
+    sub!(RE_CATEGORY, "");
+    sub!(RE_FILE, "");
 
-    // Remove bold/italic markup
-    text = RE_BOLD.replace_all(&text, "$1").to_string();
-    text = RE_ITALIC.replace_all(&text, "$1").to_string();
+    // Convert piped links to display text.
+    sub!(RE_PIPED_LINK, "$1");
 
-    // Convert headings to plain text
-    text = RE_HEADING.replace_all(&text, "$1").to_string();
+    // Convert simple links to target text.
+    sub!(RE_SIMPLE_LINK, "$1");
 
-    // Remove HTML tags
-    text = RE_HTML_TAG.replace_all(&text, "").to_string();
+    // Convert external links to label text.
+    sub!(RE_EXTERNAL_LINK, "$1");
 
-    text
+    // Remove bold/italic markup.
+    sub!(RE_BOLD, "$1");
+    sub!(RE_ITALIC, "$1");
+
+    // Convert headings to plain text.
+    sub!(RE_HEADING, "$1");
+
+    // Remove HTML tags.
+    sub!(RE_HTML_TAG, "");
+
+    text.into_owned()
 }
 
 #[cfg(test)]

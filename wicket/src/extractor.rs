@@ -1,3 +1,5 @@
+use std::fmt::Write as _;
+
 use crate::error::Error;
 
 /// Output format for extracted Wikipedia pages.
@@ -119,10 +121,24 @@ pub fn format_page(
         OutputFormat::Doc => {
             let escaped_title = escape_html(title);
             let escaped_url = escape_html(&url);
-            format!(
-                "<doc id=\"{}\" url=\"{}\" title=\"{}\">\n{}\n</doc>\n\n",
-                id, escaped_url, escaped_title, text
+            // Pre-allocate the exact output size and write directly to avoid
+            // the runtime format-string parsing overhead of format!().
+            let capacity = 9          // "<doc id=\""
+                + 20                  // id (u64 max 20 digits)
+                + 7                   // "\" url=\""
+                + escaped_url.len()
+                + 10                  // "\" title=\""
+                + escaped_title.len()
+                + 3                   // "\">\n"
+                + text.len()
+                + 9; // "\n</doc>\n\n"
+            let mut out = String::with_capacity(capacity);
+            write!(
+                out,
+                "<doc id=\"{id}\" url=\"{escaped_url}\" title=\"{escaped_title}\">\n{text}\n</doc>\n\n"
             )
+            .expect("writing to String is infallible");
+            out
         }
         OutputFormat::Json => {
             let obj = serde_json::json!({
@@ -132,8 +148,11 @@ pub fn format_page(
                 "text": text,
             });
             // serde_json::to_string should not fail for simple string values.
-            let json_str = serde_json::to_string(&obj).unwrap_or_default();
-            format!("{}\n", json_str)
+            let mut json_str = serde_json::to_string(&obj).unwrap_or_default();
+            // Append the trailing newline directly instead of format!("{}\n", ...)
+            // to avoid allocating a second String.
+            json_str.push('\n');
+            json_str
         }
     }
 }
