@@ -162,10 +162,6 @@ static RE_REF: LazyLock<Regex> =
 static RE_TABLE: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?s)\{\|.*?\|\}").expect("invalid regex"));
 
-/// Matches multiple consecutive spaces.
-static RE_MULTI_SPACE: LazyLock<Regex> =
-    LazyLock::new(|| Regex::new(r" {2,}").expect("invalid regex"));
-
 // Post-processing patterns to catch markup remnants that survive AST/fallback cleaning.
 
 /// Matches orphaned template closing braces (`}}`) possibly preceded by parameter-like text.
@@ -315,6 +311,42 @@ fn extract_text_from_nodes(nodes: &[Node], output: &mut String) {
     }
 }
 
+/// Collapses runs of two or more ASCII spaces into a single space.
+///
+/// Scans the input as bytes (spaces are always `0x20` regardless of the
+/// surrounding Unicode characters) and writes to a new `String` only when
+/// consecutive spaces are found.  This avoids the overhead of a full regex
+/// DFA while remaining correct for any UTF-8 input.
+///
+/// # Arguments
+///
+/// * `s` - A string slice that is known to contain at least one run of two
+///   or more consecutive spaces (i.e. `s.contains("  ")` is true).
+///
+/// # Returns
+///
+/// A new `String` with all multi-space runs replaced by a single space.
+#[inline]
+fn collapse_spaces(s: &str) -> String {
+    let bytes = s.as_bytes();
+    let mut result = Vec::with_capacity(s.len());
+    let mut last_was_space = false;
+    for &b in bytes {
+        if b == b' ' {
+            if !last_was_space {
+                result.push(b);
+            }
+            last_was_space = true;
+        } else {
+            result.push(b);
+            last_was_space = false;
+        }
+    }
+    // SAFETY: Removing duplicate space bytes (0x20, single-byte ASCII) from a
+    // valid UTF-8 byte sequence always yields a valid UTF-8 byte sequence.
+    unsafe { String::from_utf8_unchecked(result) }
+}
+
 /// Post-processes extracted text by removing markup remnants and normalizing
 /// whitespace.
 ///
@@ -369,8 +401,11 @@ fn clean_text(text: &str) -> String {
             s1
         };
         let s2_trimmed = s2.trim();
-        let s3 = if s2_trimmed.contains("  ") {
-            RE_MULTI_SPACE.replace_all(s2_trimmed, " ")
+        let s3: std::borrow::Cow<str> = if s2_trimmed.contains("  ") {
+            // Collapse consecutive spaces without invoking a regex engine.
+            // Since spaces are single-byte ASCII, scanning bytes is both
+            // correct for any UTF-8 input and faster than the DFA approach.
+            std::borrow::Cow::Owned(collapse_spaces(s2_trimmed))
         } else {
             std::borrow::Cow::Borrowed(s2_trimmed)
         };

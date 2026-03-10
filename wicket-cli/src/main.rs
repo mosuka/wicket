@@ -45,7 +45,14 @@ struct Cli {
 }
 
 /// Batch size for parallel processing.
-const BATCH_SIZE: usize = 1000;
+///
+/// Set to 4× the rayon thread count so that each worker always has multiple
+/// items queued (reducing idle time) while keeping peak memory reasonable.
+/// Falls back to 64 when the thread pool has not yet been initialised.
+fn batch_size() -> usize {
+    let threads = rayon::current_num_threads();
+    (threads * 4).max(64)
+}
 
 fn main() -> Result<()> {
     env_logger::init();
@@ -134,7 +141,7 @@ fn main() -> Result<()> {
                     None
                 }
             })
-            .take(BATCH_SIZE)
+            .take(batch_size())
             .collect();
 
         if batch.is_empty() {

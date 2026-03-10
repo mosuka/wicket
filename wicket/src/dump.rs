@@ -8,6 +8,45 @@ use quick_xml::events::Event;
 
 use crate::error::Error;
 
+/// Identifies the XML tag currently being parsed within a `<page>` element.
+///
+/// Using an enum instead of a `String` eliminates one heap allocation per
+/// XML `Start` event while still allowing fast dispatch in the `Text` handler.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum PageTag {
+    Title,
+    Ns,
+    Id,
+    Text,
+    Other,
+}
+
+impl PageTag {
+    /// Converts a raw UTF-8 tag name to the corresponding variant.
+    #[inline]
+    fn from_bytes(b: &[u8]) -> Self {
+        match b {
+            b"title" => PageTag::Title,
+            b"ns" => PageTag::Ns,
+            b"id" => PageTag::Id,
+            b"text" => PageTag::Text,
+            _ => PageTag::Other,
+        }
+    }
+
+    /// Returns a static string representation for use in error messages.
+    #[inline]
+    fn as_str(self) -> &'static str {
+        match self {
+            PageTag::Title => "title",
+            PageTag::Ns => "ns",
+            PageTag::Id => "id",
+            PageTag::Text => "text",
+            PageTag::Other => "unknown",
+        }
+    }
+}
+
 /// A Wikipedia article extracted from the XML dump.
 ///
 /// Each article corresponds to a single `<page>` element in the MediaWiki
@@ -169,7 +208,8 @@ impl<R: BufRead> DumpReader<R> {
         let mut id: Option<u64> = None;
         let mut ns: Option<i32> = None;
         let mut text = String::new();
-        let mut current_tag = String::new();
+        // PageTag enum avoids one String allocation per XML Start event.
+        let mut current_tag = PageTag::Other;
         let mut in_revision = false;
         let mut page_id_captured = false;
 
@@ -178,8 +218,9 @@ impl<R: BufRead> DumpReader<R> {
             match self.reader.read_event_into(&mut self.buf) {
                 Ok(Event::Start(ref e)) => {
                     let local = e.local_name();
-                    current_tag = String::from_utf8_lossy(local.as_ref()).to_string();
-                    if current_tag == "revision" {
+                    let raw = local.as_ref();
+                    current_tag = PageTag::from_bytes(raw);
+                    if raw == b"revision" {
                         in_revision = true;
                     }
                 }
@@ -208,38 +249,42 @@ impl<R: BufRead> DumpReader<R> {
                             text,
                         }));
                     }
-                    current_tag.clear();
+                    current_tag = PageTag::Other;
                 }
                 Ok(Event::Text(ref e)) => {
+                    // Use into_owned() instead of to_string() so that a
+                    // Cow::Owned result is returned without an extra copy.
                     let value = e
                         .decode()
                         .map_err(|err| {
-                            Error::Xml(format!("failed to decode text in <{current_tag}>: {err}"))
+                            Error::Xml(format!(
+                                "failed to decode text in <{}>: {err}",
+                                current_tag.as_str()
+                            ))
                         })?
-                        .to_string();
-                    match current_tag.as_str() {
-                        "title" => title = value,
-                        "ns" => {
+                        .into_owned();
+                    match current_tag {
+                        PageTag::Title => title = value,
+                        PageTag::Ns => {
                             ns = Some(value.parse::<i32>().map_err(|err| {
                                 Error::Xml(format!("invalid namespace value '{value}': {err}"))
                             })?);
                         }
-                        "id" if !in_revision && !page_id_captured => {
+                        PageTag::Id if !in_revision && !page_id_captured => {
                             id = Some(value.parse::<u64>().map_err(|err| {
                                 Error::Xml(format!("invalid page id '{value}': {err}"))
                             })?);
                             page_id_captured = true;
                         }
-                        "text" if in_revision => {
+                        PageTag::Text if in_revision => {
                             text = value;
                         }
                         _ => {}
                     }
                 }
                 Ok(Event::CData(ref e)) => {
-                    if current_tag == "text" && in_revision {
-                        let value = String::from_utf8_lossy(e.as_ref()).to_string();
-                        text = value;
+                    if current_tag == PageTag::Text && in_revision {
+                        text = String::from_utf8_lossy(e.as_ref()).into_owned();
                     }
                 }
                 Ok(Event::Eof) => {
