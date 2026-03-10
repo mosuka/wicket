@@ -12,6 +12,8 @@ pub enum OutputFormat {
 /// Escapes HTML special characters in the given string.
 ///
 /// Replaces `&`, `<`, `>`, and `"` with their corresponding HTML entities.
+/// Uses a single-pass scan to avoid the multiple full-string allocations that
+/// chained `.replace()` calls would produce.
 ///
 /// # Arguments
 ///
@@ -20,11 +22,27 @@ pub enum OutputFormat {
 /// # Returns
 ///
 /// A new string with HTML special characters escaped.
+#[inline]
 fn escape_html(s: &str) -> String {
-    s.replace('&', "&amp;")
-        .replace('<', "&lt;")
-        .replace('>', "&gt;")
-        .replace('"', "&quot;")
+    // Reserve slightly more than the input length to absorb short escape sequences.
+    let mut result = String::with_capacity(s.len() + 16);
+    let mut last = 0;
+    for (i, b) in s.bytes().enumerate() {
+        let esc = match b {
+            b'&' => "&amp;",
+            b'<' => "&lt;",
+            b'>' => "&gt;",
+            b'"' => "&quot;",
+            _ => continue,
+        };
+        // All four matched bytes are single-byte ASCII, so `i` and `i + 1`
+        // are always valid UTF-8 boundaries within `s`.
+        result.push_str(&s[last..i]);
+        result.push_str(esc);
+        last = i + 1;
+    }
+    result.push_str(&s[last..]);
+    result
 }
 
 /// Generates a Wikipedia URL from a base URL and a page title.
@@ -48,9 +66,21 @@ fn escape_html(s: &str) -> String {
 /// let url = make_url("https://ja.wikipedia.org/wiki", "東京都");
 /// assert_eq!(url, "https://ja.wikipedia.org/wiki/東京都");
 /// ```
+#[inline]
 pub fn make_url(url_base: &str, title: &str) -> String {
-    let encoded_title = title.replace(' ', "_");
-    format!("{}/{}", url_base, encoded_title)
+    // Pre-allocate the exact final length: base + '/' + title (same byte length
+    // because space and '_' are both single-byte ASCII).
+    let mut url = String::with_capacity(url_base.len() + 1 + title.len());
+    url.push_str(url_base);
+    url.push('/');
+    for ch in title.chars() {
+        if ch == ' ' {
+            url.push('_');
+        } else {
+            url.push(ch);
+        }
+    }
+    url
 }
 
 /// Formats a Wikipedia page into the specified output format.

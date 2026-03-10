@@ -204,7 +204,10 @@ pub fn clean_wikitext(wikitext: &str) -> String {
 
     match result {
         Ok(output) => {
-            let mut text = String::new();
+            // Wikitext shrinks significantly after markup removal; half the
+            // input length is a reasonable initial capacity that avoids most
+            // reallocations without over-allocating.
+            let mut text = String::with_capacity(wikitext.len() / 2);
             extract_text_from_nodes(&output.nodes, &mut text);
             clean_text(&text)
         }
@@ -226,6 +229,7 @@ pub fn clean_wikitext(wikitext: &str) -> String {
 ///
 /// * `nodes` - The slice of AST nodes to process.
 /// * `output` - The mutable string buffer to append extracted text to.
+#[inline]
 fn extract_text_from_nodes(nodes: &[Node], output: &mut String) {
     for node in nodes {
         match node {
@@ -334,6 +338,7 @@ fn extract_text_from_nodes(nodes: &[Node], output: &mut String) {
 /// # Returns
 ///
 /// A `String` with markup remnants removed and whitespace normalized.
+#[inline]
 fn clean_text(text: &str) -> String {
     // Remove markup remnants line by line
     let lines: Vec<String> = text
