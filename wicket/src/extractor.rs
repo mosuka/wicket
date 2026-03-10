@@ -1,4 +1,20 @@
+use std::fmt::Write as _;
+
+use serde::Serialize;
+
 use crate::error::Error;
+
+/// Intermediate struct used to serialize a Wikipedia page to JSON.
+///
+/// Using `#[derive(Serialize)]` and `serde_json::to_string` avoids the
+/// intermediate `serde_json::Value` allocation that `serde_json::json!` incurs.
+#[derive(Serialize)]
+struct PageJson<'a> {
+    id: &'a str,
+    url: &'a str,
+    title: &'a str,
+    text: &'a str,
+}
 
 /// Output format for extracted Wikipedia pages.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -12,6 +28,8 @@ pub enum OutputFormat {
 /// Escapes HTML special characters in the given string.
 ///
 /// Replaces `&`, `<`, `>`, and `"` with their corresponding HTML entities.
+/// Uses a single-pass scan to avoid the multiple full-string allocations that
+/// chained `.replace()` calls would produce.
 ///
 /// # Arguments
 ///
@@ -20,11 +38,27 @@ pub enum OutputFormat {
 /// # Returns
 ///
 /// A new string with HTML special characters escaped.
+#[inline]
 fn escape_html(s: &str) -> String {
-    s.replace('&', "&amp;")
-        .replace('<', "&lt;")
-        .replace('>', "&gt;")
-        .replace('"', "&quot;")
+    // Reserve slightly more than the input length to absorb short escape sequences.
+    let mut result = String::with_capacity(s.len() + 16);
+    let mut last = 0;
+    for (i, b) in s.bytes().enumerate() {
+        let esc = match b {
+            b'&' => "&amp;",
+            b'<' => "&lt;",
+            b'>' => "&gt;",
+            b'"' => "&quot;",
+            _ => continue,
+        };
+        // All four matched bytes are single-byte ASCII, so `i` and `i + 1`
+        // are always valid UTF-8 boundaries within `s`.
+        result.push_str(&s[last..i]);
+        result.push_str(esc);
+        last = i + 1;
+    }
+    result.push_str(&s[last..]);
+    result
 }
 
 /// Generates a Wikipedia URL from a base URL and a page title.
@@ -48,9 +82,27 @@ fn escape_html(s: &str) -> String {
 /// let url = make_url("https://ja.wikipedia.org/wiki", "東京都");
 /// assert_eq!(url, "https://ja.wikipedia.org/wiki/東京都");
 /// ```
+#[inline]
 pub fn make_url(url_base: &str, title: &str) -> String {
-    let encoded_title = title.replace(' ', "_");
-    format!("{}/{}", url_base, encoded_title)
+    // Pre-allocate the exact final length: base + '/' + title (same byte length
+    // because space and '_' are both single-byte ASCII).
+    let mut url = String::with_capacity(url_base.len() + 1 + title.len());
+    url.push_str(url_base);
+    url.push('/');
+    // Fast path: if the title has no spaces, append it directly without
+    // scanning character-by-character.
+    if !title.contains(' ') {
+        url.push_str(title);
+    } else {
+        for ch in title.chars() {
+            if ch == ' ' {
+                url.push('_');
+            } else {
+                url.push(ch);
+            }
+        }
+    }
+    url
 }
 
 /// Formats a Wikipedia page into the specified output format.
@@ -89,21 +141,40 @@ pub fn format_page(
         OutputFormat::Doc => {
             let escaped_title = escape_html(title);
             let escaped_url = escape_html(&url);
-            format!(
-                "<doc id=\"{}\" url=\"{}\" title=\"{}\">\n{}\n</doc>\n\n",
-                id, escaped_url, escaped_title, text
+            // Pre-allocate the exact output size and write directly to avoid
+            // the runtime format-string parsing overhead of format!().
+            let capacity = 9          // "<doc id=\""
+                + 20                  // id (u64 max 20 digits)
+                + 7                   // "\" url=\""
+                + escaped_url.len()
+                + 10                  // "\" title=\""
+                + escaped_title.len()
+                + 3                   // "\">\n"
+                + text.len()
+                + 9; // "\n</doc>\n\n"
+            let mut out = String::with_capacity(capacity);
+            write!(
+                out,
+                "<doc id=\"{id}\" url=\"{escaped_url}\" title=\"{escaped_title}\">\n{text}\n</doc>\n\n"
             )
+            .expect("writing to String is infallible");
+            out
         }
         OutputFormat::Json => {
-            let obj = serde_json::json!({
-                "id": id.to_string(),
-                "url": url,
-                "title": title,
-                "text": text,
-            });
-            // serde_json::to_string should not fail for simple string values.
-            let json_str = serde_json::to_string(&obj).unwrap_or_default();
-            format!("{}\n", json_str)
+            let id_str = id.to_string();
+            let page = PageJson {
+                id: &id_str,
+                url: &url,
+                title,
+                text,
+            };
+            // Using a typed struct with #[derive(Serialize)] avoids the
+            // intermediate serde_json::Value allocation that json!() incurs.
+            let mut json_str = serde_json::to_string(&page).unwrap_or_default();
+            // Append the trailing newline directly instead of format!("{}\n", ...)
+            // to avoid allocating a second String.
+            json_str.push('\n');
+            json_str
         }
     }
 }
